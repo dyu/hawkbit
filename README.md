@@ -28,7 +28,7 @@ mvn install
 `hawkbit-http-security` : implementation for security filters for HTTP.    
 `hawkbit-rest-api` : API classes for the REST Management API.  
 `hawkbit-rest-resource` : HTTP REST endpoints for the Management and the Direct Device API.  
-`hawkbit-rest-resource` : Vaadin UI.  
+`hawkbit-ui` : Vaadin UI.  
 `hawkbit-cache-redis` : spring cache manager configuration and implementation with redis, distributed cache and distributed events.
 
 
