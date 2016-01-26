@@ -25,7 +25,6 @@
    <modules>
       <module>hawkbit-device-simulator</module>
       <module>hawkbit-example-app</module>
-      <module>hawkbit-mgmt-api-client</module>
    </modules>
 
 </project>
