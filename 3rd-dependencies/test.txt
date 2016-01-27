@@ -43,15 +43,12 @@
    org.springframework.boot:spring-boot-starter:jar:1.2.7.RELEASE:test
    org.springframework.data:spring-data-rest-core:jar:2.3.1.RELEASE:test
    org.springframework.data:spring-data-rest-webmvc:jar:2.3.1.RELEASE:test
-   org.springframework.hateoas:spring-hateoas:jar:0.16.0.RELEASE:test
    org.springframework.plugin:spring-plugin-core:jar:1.1.0.RELEASE:test
    org.springframework.security:spring-security-aspects:jar:3.2.8.RELEASE:test
    org.springframework.security:spring-security-config:jar:3.2.8.RELEASE:test
    org.springframework.security:spring-security-web:jar:3.2.8.RELEASE:test
    org.springframework:spring-context-support:jar:4.1.8.RELEASE:test
    org.springframework:spring-test:jar:4.1.8.RELEASE:test
-   org.springframework:spring-web:jar:4.1.8.RELEASE:test
-   org.springframework:spring-webmvc:jar:4.1.8.RELEASE:test
    ru.yandex.qatools.allure:allure-java-adaptor-api:jar:1.4.15:test
    ru.yandex.qatools.allure:allure-java-annotations:jar:1.4.15:test
    ru.yandex.qatools.allure:allure-java-aspects:jar:1.4.15:test

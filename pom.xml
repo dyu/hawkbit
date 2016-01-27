@@ -37,7 +37,6 @@
       <module>hawkbit-ui</module>
       <module>hawkbit-artifact-repository-mongo</module>
       <module>hawkbit-autoconfigure</module>
-      <module>hawkbit-cache-redis</module>
       <module>hawkbit-test-report</module>
       <module>examples</module>
    </modules>
