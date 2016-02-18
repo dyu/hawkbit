@@ -72,6 +72,7 @@
    org.springframework:spring-aop:jar:4.1.8.RELEASE:compile
    org.springframework:spring-aspects:jar:4.1.8.RELEASE:compile
    org.springframework:spring-beans:jar:4.1.8.RELEASE:compile
+   org.springframework:spring-context-support:jar:4.1.8.RELEASE:compile
    org.springframework:spring-context:jar:4.1.8.RELEASE:compile
    org.springframework:spring-core:jar:4.1.8.RELEASE:compile
    org.springframework:spring-expression:jar:4.1.8.RELEASE:compile
