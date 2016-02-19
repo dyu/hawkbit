@@ -45,9 +45,9 @@
    org.jsoup:jsoup:jar:1.8.1:compile
    org.mongodb:mongo-java-driver:jar:3.0.2:compile
    org.objenesis:objenesis:jar:2.1:compile
-   org.slf4j:jcl-over-slf4j:jar:1.7.12:compile
-   org.slf4j:jul-to-slf4j:jar:1.7.12:compile
-   org.slf4j:slf4j-api:jar:1.7.7:compile
+   org.slf4j:jcl-over-slf4j:jar:1.7.10:compile
+   org.slf4j:jul-to-slf4j:jar:1.7.10:compile
+   org.slf4j:slf4j-api:jar:1.7.10:compile
    org.springframework.amqp:spring-amqp:jar:1.4.6.RELEASE:compile
    org.springframework.amqp:spring-rabbit:jar:1.4.6.RELEASE:compile
    org.springframework.boot:spring-boot-autoconfigure:jar:1.2.7.RELEASE:compile

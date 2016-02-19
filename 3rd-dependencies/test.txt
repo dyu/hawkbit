@@ -37,7 +37,7 @@
    org.mariadb.jdbc:mariadb-java-client:jar:1.2.3:test
    org.mockito:mockito-core:jar:1.10.19:test
    org.objenesis:objenesis:jar:2.1:test
-   org.slf4j:jul-to-slf4j:jar:1.7.12:test
+   org.slf4j:jul-to-slf4j:jar:1.7.10:test
    org.springframework.boot:spring-boot-starter-hateoas:jar:1.2.7.RELEASE:test
    org.springframework.boot:spring-boot-starter-log4j2:jar:1.2.7.RELEASE:test
    org.springframework.boot:spring-boot-starter-test:jar:1.2.7.RELEASE:test
