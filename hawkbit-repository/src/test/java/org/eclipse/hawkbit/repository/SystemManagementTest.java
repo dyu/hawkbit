@@ -26,16 +26,12 @@ import org.eclipse.hawkbit.tenancy.configuration.TenantConfigurationKey;
 import org.junit.Test;
 import org.springframework.core.convert.ConversionFailedException;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
 
-@Features("Component Tests - Repository")
-@Stories("System Management")
+
 public class SystemManagementTest extends AbstractIntegrationTestWithMongoDB {
 
     @Test
-    @Description("Ensures that findTenants returns all tenants and not only restricted to the tenant which currently is logged in")
+    
     public void findTenantsReturnsAllTenantsNotOnlyWhichLoggedIn() throws Exception {
         assertThat(systemManagement.findTenants()).hasSize(1);
 
@@ -45,7 +41,7 @@ public class SystemManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Checks that the system report calculates correctly the artifact size of all tenants in the system. It ignores deleted software modules with their artifacts.")
+    
     public void systemUsageReportCollectsArtifactsOfAllTenants() throws Exception {
         // Prepare tenants
         createTestTenantsForSystemStatistics(2, 1234, 0, 0);
@@ -63,7 +59,7 @@ public class SystemManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Checks that the system report calculates correctly the targets size of all tenants in the system")
+    
     public void systemUsageReportCollectsTargetsOfAllTenants() throws Exception {
         // Prepare tenants
         createTestTenantsForSystemStatistics(2, 0, 100, 0);
@@ -80,7 +76,7 @@ public class SystemManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Checks that the system report calculates correctly the actions size of all tenants in the system")
+    
     public void systemUsageReportCollectsActionsOfAllTenants() throws Exception {
         // Prepare tenants
         createTestTenantsForSystemStatistics(2, 0, 100, 2);
@@ -152,7 +148,7 @@ public class SystemManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Tests that tenant specific configuration can be persisted and in case the tenant does not have specific configuration the default from environment is used instead.")
+    
     public void storeTenantSpecificConfiguration() {
         final TenantConfigurationKey configKey = TenantConfigurationKey.AUTHENTICATION_MODE_HEADER_ENABLED;
         final String envPropertyDefault = environment.getProperty(configKey.getDefaultKeyName());
@@ -175,7 +171,7 @@ public class SystemManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Tests that the tenant specific configuration can be updated")
+    
     public void updateTenantSpecifcConfiguration() {
         final TenantConfigurationKey configKey = TenantConfigurationKey.AUTHENTICATION_MODE_HEADER_ENABLED;
         final String value1 = "firstValue";
@@ -191,7 +187,7 @@ public class SystemManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Tests that the configuration value can be converted from String to Integer automatically")
+    
     public void tenantConfigurationValueConversion() {
         final TenantConfigurationKey configKey = TenantConfigurationKey.AUTHENTICATION_MODE_HEADER_ENABLED;
         final Integer value1 = 123;
@@ -201,7 +197,7 @@ public class SystemManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test(expected = ConversionFailedException.class)
-    @Description("Tests that the get configuration throws exception in case the value cannot be automatically converted from String to Integer")
+    
     public void wrongTenantConfigurationValueConversionThrowsException() {
         final TenantConfigurationKey configKey = TenantConfigurationKey.AUTHENTICATION_MODE_HEADER_ENABLED;
         final String value1 = "thisIsNotANumber";
@@ -213,7 +209,7 @@ public class SystemManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Tests that a deletion of a tenant specific configuration deletes it from the database.")
+    
     public void deleteConfigurationReturnNullConfiguration() {
         final TenantConfigurationKey configKey = TenantConfigurationKey.AUTHENTICATION_MODE_GATEWAY_SECURITY_TOKEN_KEY;
 

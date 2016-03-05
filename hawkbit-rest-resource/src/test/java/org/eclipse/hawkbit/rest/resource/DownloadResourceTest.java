@@ -25,17 +25,13 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.Cache;
-import org.springframework.context.annotation.Description;
-
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
 
 /**
  *
  *
  */
-@Features("Component Tests- Download Restful API")
-@Stories("Download Resource")
+
+
 public class DownloadResourceTest extends AbstractIntegrationTestWithMongoDB {
 
     @Autowired
@@ -59,7 +55,7 @@ public class DownloadResourceTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("This test verifies the call of download artifact without a valid download id fails.")
+    
     public void testNoDownloadIdAvailable() throws Exception {
         mvc.perform(
                 get(RestConstants.DOWNLOAD_ID_V1_REQUEST_MAPPING_BASE + RestConstants.DOWNLOAD_ID_V1_REQUEST_MAPPING,
@@ -69,7 +65,7 @@ public class DownloadResourceTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("This test verifies the call of download artifact works and the download id will be removed.")
+    
     public void testDownload() throws Exception {
         mvc.perform(
                 get(RestConstants.DOWNLOAD_ID_V1_REQUEST_MAPPING_BASE + RestConstants.DOWNLOAD_ID_V1_REQUEST_MAPPING,

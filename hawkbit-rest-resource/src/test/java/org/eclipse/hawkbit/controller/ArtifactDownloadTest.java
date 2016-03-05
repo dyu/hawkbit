@@ -39,6 +39,7 @@ import org.eclipse.hawkbit.repository.model.Target;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Description;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
@@ -50,10 +51,6 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.common.net.HttpHeaders;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 /**
  * Test artifact downloads from the controller.
  *
@@ -63,8 +60,7 @@ import ru.yandex.qatools.allure.annotations.Stories;
  */
 
 @ActiveProfiles({ "im", "test" })
-@Features("Component Tests - Controller RESTful API")
-@Stories("Artifact Download Resource")
+
 public class ArtifactDownloadTest extends AbstractIntegrationTestWithMongoDB {
 
     private static final String AUTH_ANOYM = "ROLE_CONTROLLER_ANONYMOUS";
@@ -79,7 +75,7 @@ public class ArtifactDownloadTest extends AbstractIntegrationTestWithMongoDB {
     private EventBus eventBus;
 
     @Test
-    @Description("Tests non allowed requests on the artifact ressource, e.g. invalid URI, wrong if-match, wrong command.")
+
     public void invalidRequestsOnArtifactResource() throws Exception {
         // create target
         Target target = new Target("4712");
@@ -164,7 +160,7 @@ public class ArtifactDownloadTest extends AbstractIntegrationTestWithMongoDB {
 
     @Test
     @WithUser(principal = "4712", authorities = "ROLE_CONTROLLER", allSpPermissions = true)
-    @Description("Tests non allowed requests on the artifact ressource, e.g. invalid URI, wrong if-match, wrong command.")
+
     public void invalidRequestsOnArtifactResourceByName() throws Exception {
         // create target
         Target target = new Target("4712");
@@ -245,7 +241,7 @@ public class ArtifactDownloadTest extends AbstractIntegrationTestWithMongoDB {
 
     @Test
     @WithUser(principal = "4712", authorities = "ROLE_CONTROLLER", allSpPermissions = true)
-    @Description("Tests valid downloads through the artifact resource by identifying the artifact not by ID but file name.")
+
     public void downloadArtifactThroughFileName() throws Exception {
         downLoadProgress = 1;
         eventBus.register(this);
@@ -292,7 +288,7 @@ public class ArtifactDownloadTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Tests valid MD5SUm file downloads through the artifact resource by identifying the artifact by ID.")
+
     public void downloadMd5sumThroughControllerApi() throws Exception {
         // create target
         Target target = new Target("4712");
@@ -355,7 +351,7 @@ public class ArtifactDownloadTest extends AbstractIntegrationTestWithMongoDB {
 
     @Test
     @WithUser(principal = "4712", authorities = "ROLE_CONTROLLER", allSpPermissions = true)
-    @Description("Ensures that an authenticated and named controller is permitted to download.")
+
     public void downloadArtifactByNameByNamedController() throws Exception {
         downLoadProgress = 1;
         eventBus.register(this);
@@ -411,7 +407,7 @@ public class ArtifactDownloadTest extends AbstractIntegrationTestWithMongoDB {
 
     @Test
     @WithUser(principal = "4712", authorities = "ROLE_CONTROLLER", allSpPermissions = true)
-    @Description("Test various HTTP range requests for artifact download, e.g. chunk download or download resume.")
+
     public void rangeDownloadArtifactByName() throws Exception {
         // create target
         Target target = new Target("4712");
@@ -516,7 +512,7 @@ public class ArtifactDownloadTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Ensures that the download fails if te controller is not authenticated.")
+
     public void faildDownloadArtifactByNameIfAuthenticationMissing() throws Exception {
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).hasSize(0);
         assertThat(artifactRepository.findAll()).hasSize(0);
@@ -542,7 +538,7 @@ public class ArtifactDownloadTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Downloads an MD5SUM file by the related artifacts filename.")
+
     public void downloadMd5sumFileByName() throws Exception {
         // create target
         Target target = new Target("4712");

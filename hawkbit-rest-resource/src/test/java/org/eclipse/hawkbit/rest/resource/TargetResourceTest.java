@@ -61,10 +61,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import com.google.common.collect.Lists;
 import com.jayway.jsonpath.JsonPath;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 /**
  *
  * Spring MVC Tests against the TargetResource.
@@ -72,8 +68,8 @@ import ru.yandex.qatools.allure.annotations.Stories;
  *
  *
  */
-@Features("Component Tests - Management RESTful API")
-@Stories("Target Resource")
+
+
 // TODO: fully document tests -> @Description for long text and reasonable
 // method name as short text
 public class TargetResourceTest extends AbstractIntegrationTest {
@@ -269,7 +265,7 @@ public class TargetResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Force Quit an Action, which is already canceled. Expected Result is an HTTP response code 204.")
+    
     public void forceQuitAnCanceledActionReturnsOk() throws Exception {
 
         Target tA = createTargetAndStartAction();
@@ -290,7 +286,7 @@ public class TargetResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Force Quit an Action, which is not canceled. Expected Result is an HTTP response code 405.")
+    
     public void forceQuitAnNotCanceledActionReturnsMethodNotAllowed() throws Exception {
 
         Target tA = createTargetAndStartAction();

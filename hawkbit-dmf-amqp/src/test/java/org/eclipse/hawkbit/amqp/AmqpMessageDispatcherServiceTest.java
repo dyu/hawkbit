@@ -48,13 +48,9 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.test.context.ActiveProfiles;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 @ActiveProfiles({ "test" })
-@Features("AMQP Dispatcher Test")
-@Stories("Tests send messages")
+
+
 public class AmqpMessageDispatcherServiceTest extends AbstractIntegrationTestWithMongoDB {
 
     private AmqpMessageDispatcherService amqpMessageDispatcherService;
@@ -84,7 +80,7 @@ public class AmqpMessageDispatcherServiceTest extends AbstractIntegrationTestWit
     }
 
     @Test
-    @Description("Verfies that download and install event with no software modul works")
+    
     public void testSendDownloadRequesWithEmptySoftwareModules() {
         final TargetAssignDistributionSetEvent targetAssignDistributionSetEvent = new TargetAssignDistributionSetEvent(
                 CONTROLLER_ID, 1l, new ArrayList<SoftwareModule>(), IpUtil.createAmqpUri("mytest"));
@@ -95,7 +91,7 @@ public class AmqpMessageDispatcherServiceTest extends AbstractIntegrationTestWit
     }
 
     @Test
-    @Description("Verfies that download and install event with 3 software moduls and no artifacts works")
+    
     public void testSendDownloadRequesWithSoftwareModulesAndNoArtifacts() {
         final DistributionSet dsA = TestDataUtil.generateDistributionSet("", softwareManagement,
                 distributionSetManagement);
@@ -120,7 +116,7 @@ public class AmqpMessageDispatcherServiceTest extends AbstractIntegrationTestWit
     }
 
     @Test
-    @Description("Verfies that download and install event with software moduls and artifacts works")
+    
     public void testSendDownloadRequest() {
         final DistributionSet dsA = TestDataUtil.generateDistributionSet("", softwareManagement,
                 distributionSetManagement);
@@ -149,7 +145,7 @@ public class AmqpMessageDispatcherServiceTest extends AbstractIntegrationTestWit
     }
 
     @Test
-    @Description("Verfies that send cancel event works")
+    
     public void testSendCancelRequest() {
         final CancelTargetAssignmentEvent cancelTargetAssignmentDistributionSetEvent = new CancelTargetAssignmentEvent(
                 CONTROLLER_ID, 1l, IpUtil.createAmqpUri("mytest"));

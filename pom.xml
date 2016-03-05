@@ -78,7 +78,6 @@
       <fest-assert.version>1.4</fest-assert.version>
       <org.easytesting.version>2.0M10</org.easytesting.version>
       <java.version>1.8</java.version>
-      <allure.version>1.4.15</allure.version>
       <eclipselink.version>2.6.0</eclipselink.version>
       <org.powermock.version>1.5.4</org.powermock.version>
       <pl.pragmatists.version>1.0.2</pl.pragmatists.version>
@@ -140,6 +139,7 @@
                   <exclude>**/*.sql</exclude>
                   <exclude>**/*.sql</exclude>
                   <exclude>eclipse_codeformatter.xml</exclude>
+                  <exclude>**/addons.scss</exclude>
                </excludes>
                <mapping>
                   <scss>JAVADOC_STYLE</scss>
@@ -252,12 +252,6 @@
                      ${jacoco.agent.ut.arg}
                      -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                   </argLine>
-                  <properties>
-                     <property>
-                        <name>listener</name>
-                        <value>ru.yandex.qatools.allure.junit.AllureRunListener</value>
-                     </property>
-                  </properties>
                   <includes>
                      <include>**/*Tests.java</include>
                      <include>**/*Test.java</include>
@@ -283,13 +277,7 @@
                   <forkCount>3</forkCount>
                   <argLine>-Xmx1024m ${jacoco.agent.ut.arg}
                      -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"</argLine>
-                  <properties>
-                     <property>
-                        <name>listener</name>
-                        <value>ru.yandex.qatools.allure.junit.AllureRunListener</value>
-                     </property>
-                  </properties>
-               </configuration>
+                  </configuration>
                <dependencies>
                   <dependency>
                      <groupId>org.aspectj</groupId>
@@ -586,12 +574,6 @@
             <groupId>org.easytesting</groupId>
             <artifactId>fest-assert-core</artifactId>
             <version>${org.easytesting.version}</version>
-            <scope>test</scope>
-         </dependency>
-         <dependency>
-            <groupId>ru.yandex.qatools.allure</groupId>
-            <artifactId>allure-junit-adaptor</artifactId>
-            <version>${allure.version}</version>
             <scope>test</scope>
          </dependency>
          <dependency>

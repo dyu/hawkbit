@@ -49,12 +49,8 @@ import org.springframework.data.domain.Slice;
 
 import com.google.common.collect.Lists;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
 
-@Features("Component Tests - Repository")
-@Stories("Report Management")
+
 public class ReportManagementTest extends AbstractIntegrationTest {
 
     @Autowired
@@ -69,7 +65,7 @@ public class ReportManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests correct statistics calculation including a correct cache evict.")
+    
     public void targetsCreatedOverPeriod() {
 
         // the maximum months going back from now
@@ -114,7 +110,7 @@ public class ReportManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests correct statistics calculation including a correct cache evict.")
+    
     public void targetsFeedbackOverPeriod() {
 
         // the maximum months going back from now
@@ -169,7 +165,7 @@ public class ReportManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests correct statistics calculation including a correct cache evict.")
+    
     public void distributionUsageInstalled() {
         final Target knownTarget1 = targetManagement.createTarget(new Target("t1"));
         final Target knownTarget2 = targetManagement.createTarget(new Target("t2"));
@@ -258,7 +254,7 @@ public class ReportManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests correct statistics calculation including a correct cache evict.")
+    
     public void targetStatusReport() {
 
         final long knownErrorCount = 5;
@@ -330,7 +326,7 @@ public class ReportManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests correct statistics calculation including a correct cache evict.")
+    
     public void topXDistributionUsage() {
 
         final Target knownTarget1 = targetManagement.createTarget(new Target("t1"));
@@ -408,7 +404,7 @@ public class ReportManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests correct statistics calculation including a correct cache evict.")
+    
     public void lastPollTargets() {
         // --- prepare ---
         final LocalDateTime now = LocalDateTime.now();
@@ -463,7 +459,7 @@ public class ReportManagementTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(tenantId = "mytenant", allSpPermissions = true)
-    @Description("Ensures that targets created report is tenant aware and only creates a report for the current tenant.")
+    
     public void targetsCreatedOverPeriodMultiTenancyAware() throws Exception {
         final int targetCreateAmount = 10;
 

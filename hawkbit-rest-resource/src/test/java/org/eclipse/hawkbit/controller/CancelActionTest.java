@@ -35,17 +35,13 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 @ActiveProfiles({ "im", "test" })
-@Features("Component Tests - Controller RESTful API")
-@Stories("Cancel Action Resource")
+
+
 public class CancelActionTest extends AbstractIntegrationTest {
 
     @Test
-    @Description("Test of the controller can continue a started update even after a cancel command if it so desires.")
+    
     public void rootRsCancelActionButContinueAnyway() throws Exception {
         // prepare test data
         final Target target = new Target("4712");
@@ -102,7 +98,7 @@ public class CancelActionTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Test for cancel operation of a update action.")
+    
     public void rootRsCancelAction() throws Exception {
         final Target target = new Target("4712");
         final DistributionSet ds = TestDataUtil.generateDistributionSet("", softwareManagement,
@@ -193,7 +189,7 @@ public class CancelActionTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests various bad requests and if the server handles them as expected.")
+    
     public void badCancelAction() throws Exception {
 
         // not allowed methods
@@ -234,7 +230,7 @@ public class CancelActionTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests the feedback channel of the cancel operation.")
+    
     public void rootRsCancelActionFeedback() throws Exception {
 
         final Target target = new Target("4712");
@@ -328,7 +324,7 @@ public class CancelActionTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests the feeback chanel of for multiple open cancel operations on the same target.")
+    
     public void multipleCancelActionFeedback() throws Exception {
         final Target target = new Target("4712");
         final DistributionSet ds = TestDataUtil.generateDistributionSet("", softwareManagement,
@@ -447,7 +443,7 @@ public class CancelActionTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests the feeback channel closing for too many feedbacks, i.e. denial of service prevention.")
+    
     public void tooMuchCancelActionFeedback() throws Exception {
         final Target target = targetManagement.createTarget(new Target("4712"));
         final DistributionSet ds = TestDataUtil.generateDistributionSet("", softwareManagement,
@@ -480,7 +476,7 @@ public class CancelActionTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("test the correct rejection of various invalid feedback requests")
+    
     public void badCancelActionFeedback() throws Exception {
         final Action cancelAction = createCancelAction("4712");
         final Action cancelAction2 = createCancelAction("4715");

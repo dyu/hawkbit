@@ -31,16 +31,12 @@ import org.springframework.data.domain.Slice;
 
 import com.google.common.primitives.Ints;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
 
-@Features("Component Tests - Repository")
-@Stories("Target Management Searches")
+
 public class TargetManagementSearchTest extends AbstractIntegrationTest {
 
     @Test
-    @Description("Tests different parameter combinations for target search operations. That includes both the test itself as a count operation with the same filters.")
+    
     public void targetSearchWithVariousFilterCombinations() {
         final TargetTag targTagA = tagManagement.createTargetTag(new TargetTag("TargTag-A"));
         final TargetTag targTagB = tagManagement.createTargetTag(new TargetTag("TargTag-B"));
@@ -187,7 +183,7 @@ public class TargetManagementSearchTest extends AbstractIntegrationTest {
 
     // TODO kzimmerm: add filter tests
     @Test
-    @Description("Tests the correct order of targets based on selected distribution set. The system expects to have an order based on installed, assigned DS.")
+    
     public void targetSearchWithVariousFilterCombinationsAndOrderByDistributionSet() {
 
         final List<Target> notAssigned = targetManagement

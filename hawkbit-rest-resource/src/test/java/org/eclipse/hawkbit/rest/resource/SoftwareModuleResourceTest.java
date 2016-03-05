@@ -57,20 +57,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jayway.jsonpath.JsonPath;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 /**
  * Tests for {@link SoftwareModuleResource} {@link RestController}.
  *
  */
-@Features("Component Tests - Management RESTful API")
-@Stories("Software Module Resource")
+
+
 public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongoDB {
 
     @Test
-    @Description("Tests the update of software module metadata. It is verfied that only the selected fields for the update are really updated and the modification values are filled (i.e. updated by and at).")
+    
     @WithUser(principal = "smUpdateTester", allSpPermissions = true)
     public void updateSoftwareModuleOnlyDescriptionAndVendorNameUntouched() throws Exception {
         final String knownSWName = "name1";
@@ -121,7 +117,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
      *             if test fails
      */
     @Test
-    @Description("Tests the uppload of an artifact binary. The upload is executed and the content checked in the repository for completenes.")
+    
     public void uploadArtifact() throws Exception {
         // prepare repo
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).hasSize(0);
@@ -185,7 +181,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verfies that the system does not accept empty artifact uploads. Expected response: BAD REQUEST")
+    
     public void emptyUploadArtifact() throws Exception {
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).hasSize(0);
         assertThat(artifactRepository.findAll()).hasSize(0);
@@ -201,7 +197,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verfies that the system does not accept identical artifacts uploads for the same software module. Expected response: CONFLICT")
+    
     public void duplicateUploadArtifact() throws Exception {
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).hasSize(0);
         assertThat(artifactRepository.findAll()).hasSize(0);
@@ -226,7 +222,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("verfies that option to upload artifacts with a custom defined by metadata, i.e. not the file name of the binary itself.")
+    
     public void uploadArtifactWithCustomName() throws Exception {
         // prepare repo
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).hasSize(0);
@@ -256,7 +252,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verfies that the system refuses upload of an artifact where the provided hash sums do not match. Expected result: BAD REQUEST")
+    
     public void uploadArtifactWithHashCheck() throws Exception {
         // prepare repo
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).hasSize(0);
@@ -321,7 +317,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Tests binary download of an artifact including verfication that the downloaded binary is consistent and that the etag header is as expected identical to the SHA1 hash of the file.")
+    
     public void downloadArtifact() throws Exception {
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).hasSize(0);
         assertThat(artifactRepository.findAll()).hasSize(0);
@@ -357,7 +353,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verifies the listing of one defined artifact assigned to a given software module. That includes the artifact metadata and download links.")
+    
     public void getArtifact() throws Exception {
         // check baseline
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).hasSize(0);
@@ -388,7 +384,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verifies the listing of all artifacts assigned to a software module. That includes the artifact metadata and download links.")
+    
     public void getArtifacts() throws Exception {
         SoftwareModule sm = new SoftwareModule(osType, "name 1", "version 1", null, null);
         sm = softwareManagement.createSoftwareModule(sm);
@@ -428,7 +424,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verfies that the system refuses unsupported request types and answers as defined to them, e.g. NOT FOUND on a non existing resource. Or a HTTP POST for updating a resource results in METHOD NOT ALLOWED etc.")
+    
     public void invalidRequestsOnArtifactResource() throws Exception {
         final byte random[] = RandomStringUtils.random(5 * 1024).getBytes();
         final MockMultipartFile file = new MockMultipartFile("file", "orig", null, random);
@@ -464,7 +460,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verfies that the system refuses unsupported request types and answers as defined to them, e.g. NOT FOUND on a non existing resource. Or a HTTP POST for updating a resource results in METHOD NOT ALLOWED etc.")
+    
     public void invalidRequestsOnSoftwaremodulesResource() throws Exception {
         SoftwareModule sm = new SoftwareModule(osType, "name 1", "version 1", null, null);
         sm = softwareManagement.createSoftwareModule(sm);
@@ -503,7 +499,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Test of modules retrieval without any parameters. Will return all modules in the system as defined by standard page size.")
+    
     public void getSoftwareModulesWithoutAddtionalRequestParameters() throws Exception {
         final int modules = 5;
         createSoftwareModulesAlphabetical(modules);
@@ -515,7 +511,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Test of modules retrieval with paging limit parameter. Will return all modules in the system as defined by given page size.")
+    
     public void detSoftwareModulesWithPagingLimitRequestParameter() throws Exception {
         final int modules = 5;
         final int limitSize = 1;
@@ -529,7 +525,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Test of modules retrieval with paging limit offset parameters. Will return all modules in the system as defined by given page size starting from given offset.")
+    
     public void getSoftwareModulesWithPagingLimitAndOffsetRequestParameter() throws Exception {
         final int modules = 5;
         final int offsetParam = 2;
@@ -546,7 +542,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Test retrieval of all software modules the user has access to.")
+    
     public void getSoftwareModules() throws Exception {
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).hasSize(0);
 
@@ -616,7 +612,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Test the various filter parameters, e.g. filter by name or type of the module.")
+    
     public void getSoftwareModulesWithFilterParameters() throws Exception {
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).hasSize(0);
 
@@ -693,7 +689,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verfies that the system answers as defined in case of a wrong filter parameter syntax. Expected result: BAD REQUEST with error description.")
+    
     public void getSoftwareModulesWithSyntaxErrorFilterParameter() throws Exception {
         mvc.perform(get("/rest/v1/softwaremodules?q=wrongFIQLSyntax").accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultPrinter.print()).andExpect(status().isBadRequest())
@@ -701,7 +697,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verfies that the system answers as defined in case of a wnon extsing field used in filter. Expected result: BAD REQUEST with error description.")
+    
     public void getSoftwareModulesWithUnknownFieldErrorFilterParameter() throws Exception {
         mvc.perform(get("/rest/v1/softwaremodules?q=wrongField==abc").accept(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultPrinter.print()).andExpect(status().isBadRequest())
@@ -710,7 +706,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Tests GET request on /rest/v1/softwaremodules/{smId}.")
+    
     public void getSoftareModule() throws Exception {
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).hasSize(0);
 
@@ -776,7 +772,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Verfies that the create request actually results in the creation of the modules in the repository.")
+    
     public void createSoftwareModules() throws JSONException, Exception {
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).hasSize(0);
 
@@ -854,7 +850,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verifies successfull deletion of software modules that are not in use, i.e. assigned to a DS.")
+    
     public void deleteUnassignedSoftwareModule() throws Exception {
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).isEmpty();
         assertThat(artifactRepository.findAll()).isEmpty();
@@ -880,7 +876,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verifies successfull deletion of software modules that are in use, i.e. assigned to a DS which should result in movinf the module to the archive.")
+    
     public void deleteAssignedSoftwareModule() throws Exception {
         // check baseline
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).isEmpty();
@@ -912,7 +908,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Tests the deletion of an artifact including verfication that the artifact is actually erased in the repository and removed from the software module.")
+    
     public void deleteArtifact() throws Exception {
         assertThat(softwareManagement.findSoftwareModulesAll(pageReq)).isEmpty();
         assertThat(artifactRepository.findAll()).isEmpty();
@@ -947,7 +943,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verfies the successfull creation of metadata.")
+    
     public void createMetadata() throws Exception {
 
         final String knownKey1 = "knownKey1";
@@ -977,7 +973,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verfies the successfull update of metadata based on given key.")
+    
     public void updateMetadata() throws Exception {
         // prepare and create metadata for update
         final String knownKey = "knownKey";
@@ -1001,7 +997,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verfies the successfull deletion of metadata entry.")
+    
     public void deleteMetadata() throws Exception {
         // prepare and create metadata for deletion
         final String knownKey = "knownKey";
@@ -1023,7 +1019,7 @@ public class SoftwareModuleResourceTest extends AbstractIntegrationTestWithMongo
     }
 
     @Test
-    @Description("Verfies the successfull search of a metadata entry based on value.")
+    
     public void searchSoftwareModuleMetadataRsql() throws Exception {
         final int totalMetadata = 10;
         final String knownKeyPrefix = "knownKey";

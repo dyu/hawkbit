@@ -32,21 +32,17 @@ import org.eclipse.hawkbit.repository.model.Target;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 /**
  *
  *
  */
-@Features("Component Tests - System Management RESTful API")
-@Stories("System Management Resource")
+
+
 public class SystemManagementResourceTest extends AbstractIntegrationTestWithMongoDB {
 
     @Test
     @WithUser(tenantId = "mytenant", authorities = { SpPermission.SYSTEM_ADMIN })
-    @Description("Tests that the system is able to collect statistics for the entire system.")
+    
     public void collectSystemStatistics() throws Exception {
         createTestTenantsForSystemStatistics(2, 2000, 100, 2);
 
@@ -67,7 +63,7 @@ public class SystemManagementResourceTest extends AbstractIntegrationTestWithMon
     @Test
     @WithUser(tenantId = "mytenant", authorities = { SpPermission.DELETE_TARGET, SpPermission.DELETE_REPOSITORY,
             SpPermission.CREATE_REPOSITORY, SpPermission.READ_REPOSITORY })
-    @Description("Tests that the system is not able to collect statistics for the entire system if the .")
+    
     public void collectSystemStatisticsWithMissingPermissionFails() throws Exception {
 
         mvc.perform(get("/system/admin/usage").accept(MediaType.APPLICATION_JSON)).andDo(MockMvcResultPrinter.print())
@@ -76,7 +72,7 @@ public class SystemManagementResourceTest extends AbstractIntegrationTestWithMon
 
     @Test
     @WithUser(tenantId = "mytenant", allSpPermissions = true)
-    @Description("Tests that a tenant can be deletd by API.")
+    
     public void deleteTenant() throws Exception {
 
         final DistributionSet dsA = TestDataUtil.generateDistributionSet("", softwareManagement,
@@ -94,7 +90,7 @@ public class SystemManagementResourceTest extends AbstractIntegrationTestWithMon
     @Test
     @WithUser(tenantId = "mytenant", authorities = { SpPermission.DELETE_TARGET, SpPermission.DELETE_REPOSITORY,
             SpPermission.CREATE_REPOSITORY, SpPermission.READ_REPOSITORY })
-    @Description("Tenant deletion is only possible for SYSTEM_ADMINs. Repository or target delete is not sufficient.")
+    
     public void deleteTenantFailsMissingPermission() throws Exception {
 
         final DistributionSet dsA = TestDataUtil.generateDistributionSet("", softwareManagement,

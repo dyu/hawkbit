@@ -25,10 +25,6 @@ import org.eclipse.hawkbit.repository.model.TargetTag;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 import com.google.common.collect.Lists;
 
 /**
@@ -37,8 +33,8 @@ import com.google.common.collect.Lists;
  *
  *
  */
-@Features("Component Tests - Repository")
-@Stories("Tag Management")
+
+
 // TODO: fully document tests -> @Description for long text and reasonable
 // method name as short text
 public class TagManagementTest extends AbstractIntegrationTest {
@@ -47,7 +43,7 @@ public class TagManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Full DS tag lifecycle tested. Create tags, assign them to sets and delete the tags.")
+    
     public void createAndAssignAndDeleteDistributionSetTags() {
         final List<DistributionSet> dsAs = TestDataUtil.generateDistributionSets("DS-A", 20, softwareManagement,
                 distributionSetManagement);
@@ -214,7 +210,7 @@ public class TagManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests the creation of a target tag.")
+    
     public void updateTargetTag() {
         assertThat(targetTagRepository.findAll()).isEmpty();
 

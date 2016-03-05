@@ -39,10 +39,6 @@ import org.springframework.data.domain.PageRequest;
 
 import com.google.common.collect.Lists;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 /**
  * {@link SoftwareManagement} test focused on {@link DistributionSet} and
  * {@link DistributionSetType} related stuff.
@@ -50,12 +46,11 @@ import ru.yandex.qatools.allure.annotations.Stories;
  *
  *
  */
-@Features("Component Tests - Repository")
-@Stories("Software Management")
+
 public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
 
     @Test
-    @Description("Tests the successfull module update of unused distribution set type which is in fact allowed.")
+
     public void updateUnassignedDistributionSetTypeModules() {
         DistributionSetType updatableType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("updatableType", "to be deleted", ""));
@@ -82,7 +77,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests the successfull update of used distribution set type meta data hich is in fact allowed.")
+
     public void updateAssignedDistributionSetTypeMetaData() {
         final DistributionSetType nonUpdatableType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("updatableType", "to be deletd", ""));
@@ -103,7 +98,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test(expected = EntityReadOnlyException.class)
-    @Description("Tests the unsuccessfull update of used distribution set type (module addition).")
+
     public void addModuleToAssignedDistributionSetTypeFails() {
         final DistributionSetType nonUpdatableType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("updatableType", "to be deletd", ""));
@@ -117,7 +112,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test(expected = EntityReadOnlyException.class)
-    @Description("Tests the unsuccessfull update of used distribution set type (module removal).")
+
     public void removeModuleToAssignedDistributionSetTypeFails() {
         DistributionSetType nonUpdatableType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("updatableType", "to be deletd", ""));
@@ -134,7 +129,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests the successfull deletion of unused (hard delete) distribution set types.")
+
     public void deleteUnassignedDistributionSetType() {
         final DistributionSetType hardDelete = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("deleted", "to be deleted", ""));
@@ -146,7 +141,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests the successfull deletion of used (soft delete) distribution set types.")
+
     public void deleteAssignedDistributionSetType() {
         final DistributionSetType softDelete = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("softdeleted", "to be deletd", ""));
@@ -162,7 +157,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     // TODO: kzimmerm: test N+1
 
     @Test(expected = EntityAlreadyExistsException.class)
-    @Description("Ensures that it is not possible to create a DS that already exists (unique constraint is on name,version for DS).")
+
     public void createDuplicateDistributionSetsFailsWithException() {
         TestDataUtil.generateDistributionSet("a", softwareManagement, distributionSetManagement);
 
@@ -171,7 +166,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Checks that metadata for a distribution set can be created.")
+
     public void createDistributionSetMetadata() {
         final String knownKey = "dsMetaKnownKey";
         final String knownValue = "dsMetaKnownValue";
@@ -190,7 +185,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Ensures that updates concerning the internal software structure of a DS are not possible if the DS is already assigned.")
+
     public void updateDistributionSetForbiddedWithIllegalUpdate() {
         // prepare data
         Target target = new Target("4711");
@@ -245,7 +240,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test(expected = DistributionSetTypeUndefinedException.class)
-    @Description("Ensures that it is not possible to add a software module to a set that has no type defined.")
+
     public void updateDistributionSetModuleWithUndefinedTypeFails() {
         final DistributionSet testSet = new DistributionSet();
         final SoftwareModule module = new SoftwareModule(appType, "agent-hub2", "1.0.5", null, "");
@@ -255,7 +250,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test(expected = UnsupportedSoftwareModuleForThisDistributionSetException.class)
-    @Description("Ensures that it is not possible to add a software module that is not defined of the DS's type.")
+
     public void updateDistributionSetUnsupportedModuleFails() {
         final DistributionSet set = new DistributionSet("agent-hub2", "1.0.5", "desc",
                 new DistributionSetType("test", "test", "test").addMandatoryModuleType(osType), null);
@@ -266,7 +261,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Legal updates of a DS, e.g. name or description and module addition, removal while still unassigned.")
+
     public void updateDistributionSet() {
         // prepare data
         Target target = new Target("4711");
@@ -307,7 +302,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(allSpPermissions = true)
-    @Description("Checks that metadata for a distribution set can be updated.")
+
     public void updateDistributionSetMetadata() throws InterruptedException {
         final String knownKey = "myKnownKey";
         final String knownValue = "myKnownValue";
@@ -350,7 +345,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests that a DS queue is possible where the result is ordered by the target assignment, i.e. assigned first in the list.")
+
     public void findDistributionSetsAllOrderedByLinkTarget() {
 
         final List<DistributionSet> buildDistributionSets = TestDataUtil.generateDistributionSets("dsOrder", 10,
@@ -397,7 +392,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("searches for distribution sets based on the various filter options, e.g. name, version, desc., tags.")
+
     public void searchDistributionSetsOnFilters() {
         DistributionSetTag dsTagA = tagManagement
                 .createDistributionSetTag(new DistributionSetTag("DistributionSetTag-A"));
@@ -648,7 +643,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Simple DS load without the related data that should be loaded lazy.")
+
     public void findDistributionSetsWithoutLazy() {
         TestDataUtil.generateDistributionSets(20, softwareManagement, distributionSetManagement);
 
@@ -656,7 +651,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Deltes a DS that is no in use. Expected behaviour is a hard delete on the database.")
+
     public void deleteUnassignedDistributionSet() {
         DistributionSet ds1 = TestDataUtil.generateDistributionSet("ds-1", softwareManagement,
                 distributionSetManagement);
@@ -676,7 +671,7 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Queries and loads the metadata related to a given software module.")
+
     public void findAllDistributionSetMetadataByDsId() {
         // create a DS
         DistributionSet ds1 = TestDataUtil.generateDistributionSet("testDs1", softwareManagement,
@@ -712,8 +707,6 @@ public class SoftwareManagementForDSTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Deltes a DS that is no in use. Expected behaviour is a soft delete on the database, i.e. only marked as "
-            + "deleted, kept eas refernce and unavailable for future use..")
     public void deleteAssignedDistributionSet() {
         DistributionSet ds1 = TestDataUtil.generateDistributionSet("ds-1", softwareManagement,
                 distributionSetManagement);

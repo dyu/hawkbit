@@ -30,18 +30,11 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 @ActiveProfiles({ "im", "test" })
-@Features("Component Tests - Controller RESTful API")
-@Stories("Config Data Resource")
+
 public class ConfigDataTest extends AbstractIntegrationTest {
 
     @Test
-    @Description("We verify that the config data (i.e. device attributes like serial number, hardware revision etc.) "
-            + "are requested only once from the device.")
     public void requestConfigDataIfEmpty() throws Exception {
         final Target target = new Target("4712");
         final Target savedTarget = targetManagement.createTarget(target);
@@ -78,8 +71,6 @@ public class ConfigDataTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("We verify that the config data (i.e. device attributes like serial number, hardware revision etc.) "
-            + "can be uploaded correctly by the controller.")
     public void putConfigData() throws Exception {
         targetManagement.createTarget(new Target("4717"));
 
@@ -121,8 +112,6 @@ public class ConfigDataTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("We verify that the config data (i.e. device attributes like serial number, hardware revision etc.) "
-            + "upload limitation is inplace which is meant to protect the server from malicious attempts.")
     public void putToMuchConfigData() throws Exception {
         targetManagement.createTarget(new Target("4717"));
 
@@ -144,8 +133,6 @@ public class ConfigDataTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("We verify that the config data (i.e. device attributes like serial number, hardware revision etc.) "
-            + "resource behaves as exptected in cae of invalid request attempts.")
     public void badConfigData() throws Exception {
         final Target target = new Target("4712");
         final Target savedTarget = targetManagement.createTarget(target);

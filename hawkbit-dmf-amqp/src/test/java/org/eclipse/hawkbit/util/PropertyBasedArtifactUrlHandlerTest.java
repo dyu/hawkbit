@@ -21,16 +21,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 /**
  *
  *
  */
-@Features("Component Tests - Artifact URL Handler")
-@Stories("Test to generate the artifact download URL")
+
+
 public class PropertyBasedArtifactUrlHandlerTest extends AbstractIntegrationTestWithMongoDB {
 
     @Autowired
@@ -50,7 +46,7 @@ public class PropertyBasedArtifactUrlHandlerTest extends AbstractIntegrationTest
     }
 
     @Test
-    @Description("Tests generate the http download url")
+    
     public void testHttpUrl() {
         final String url = urlHandlerProperties.getUrl(controllerId, localArtifact, Artifact.UrlProtocol.HTTP);
         assertEquals("http://localhost/" + tenantAware.getCurrentTenant() + "/controller/v1/" + controllerId
@@ -59,7 +55,7 @@ public class PropertyBasedArtifactUrlHandlerTest extends AbstractIntegrationTest
     }
 
     @Test
-    @Description("Tests generate the https download url")
+    
     public void testHttpsUrl() {
         final String url = urlHandlerProperties.getUrl(controllerId, localArtifact, Artifact.UrlProtocol.HTTPS);
         assertEquals("https://localhost/" + tenantAware.getCurrentTenant() + "/controller/v1/" + controllerId
@@ -68,7 +64,7 @@ public class PropertyBasedArtifactUrlHandlerTest extends AbstractIntegrationTest
     }
 
     @Test
-    @Description("Tests generate the coap download url")
+    
     public void testCoapUrl() {
         final String url = urlHandlerProperties.getUrl(controllerId, localArtifact, Artifact.UrlProtocol.COAP);
 

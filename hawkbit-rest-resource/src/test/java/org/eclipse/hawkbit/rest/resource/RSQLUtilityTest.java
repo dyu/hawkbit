@@ -43,12 +43,9 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 @RunWith(MockitoJUnitRunner.class)
-@Features("Component Tests - Management RESTful API")
-@Stories("RSQL search utility")
+
+
 // TODO: fully document tests -> @Description for long text and reasonable
 // method name as short text
 public class RSQLUtilityTest {

@@ -43,16 +43,10 @@ import org.springframework.data.mongodb.core.query.Query;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
-@Features("Component Tests - Repository")
-@Stories("Software Management")
 public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
 
     @Test
-    @Description("searched for software modules based on the various filter options, e.g. name,desc,type, version.")
+
     public void findSoftwareModuleByFilters() {
         final SoftwareModule ah = softwareManagement
                 .createSoftwareModule(new SoftwareModule(appType, "agent-hub", "1.0.1", null, ""));
@@ -104,7 +98,7 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Searches for software modules based on a list of IDs.")
+
     public void findSoftwareModulesByIdAndType() {
 
         final List<Long> modules = new ArrayList<Long>();
@@ -119,7 +113,7 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Tests the successfull deletion of software module types. Both unused (hard delete) and used ones (soft delete).")
+
     public void deleteAssignedAndUnassignedSoftwareModuleTypes() {
         assertThat(softwareManagement.findSoftwareModuleTypesAll(pageReq)).hasSize(3).contains(osType, runtimeType,
                 appType);
@@ -155,14 +149,14 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Deletes an artifact, which is not assigned to a Distribution Set")
+
     public void hardDeleteOfNotAssignedArtifact() {
 
         // [STEP1]: Create SoftwareModuleX with Artifacts
-        SoftwareModule unassignedModule = createSoftwareModuleWithArtifacts(osType, "moduleX", "3.0.2", 2);
-        Iterator<Artifact> artifactsIt = unassignedModule.getArtifacts().iterator();
-        Artifact artifact1 = artifactsIt.next();
-        Artifact artifact2 = artifactsIt.next();
+        final SoftwareModule unassignedModule = createSoftwareModuleWithArtifacts(osType, "moduleX", "3.0.2", 2);
+        final Iterator<Artifact> artifactsIt = unassignedModule.getArtifacts().iterator();
+        final Artifact artifact1 = artifactsIt.next();
+        final Artifact artifact2 = artifactsIt.next();
 
         // [STEP2]: Delete unassigned SoftwareModule
         softwareManagement.deleteSoftwareModule(unassignedModule);
@@ -181,11 +175,11 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Deletes an artifact, which is assigned to a Distribution Set")
+
     public void softDeleteOfAssignedArtifact() {
 
         // Init DistributionSet
-        DistributionSet disSet = distributionSetManagement
+        final DistributionSet disSet = distributionSetManagement
                 .createDistributionSet(new DistributionSet("ds1", "v1.0", "test ds", standardDsType, null));
 
         // [STEP1]: Create SoftwareModuleX with ArtifactX
@@ -205,9 +199,9 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
         assertThat(softwareModuleRepository.findAll()).hasSize(1);
 
         // verify: binary data is deleted
-        Iterator<Artifact> artifactsIt = assignedModule.getArtifacts().iterator();
-        Artifact artifact1 = artifactsIt.next();
-        Artifact artifact2 = artifactsIt.next();
+        final Iterator<Artifact> artifactsIt = assignedModule.getArtifacts().iterator();
+        final Artifact artifact1 = artifactsIt.next();
+        final Artifact artifact2 = artifactsIt.next();
         assertArtfiactNull(artifact1, artifact2);
 
         // verify: artifact meta data is still available
@@ -216,12 +210,12 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Delete an artifact, which has been assigned to a rolled out DistributionSet in the past")
+
     public void softDeleteOfHistoricalAssignedArtifact() {
 
         // Init target and DistributionSet
         final Target target = targetManagement.createTarget(new Target("test123"));
-        DistributionSet disSet = distributionSetManagement
+        final DistributionSet disSet = distributionSetManagement
                 .createDistributionSet(new DistributionSet("ds1", "v1.0", "test ds", standardDsType, null));
 
         // [STEP1]: Create SoftwareModuleX and include the new ArtifactX
@@ -247,9 +241,9 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
         assertThat(softwareModuleRepository.findAll()).hasSize(1);
 
         // verify: binary data is deleted
-        Iterator<Artifact> artifactsIt = assignedModule.getArtifacts().iterator();
-        Artifact artifact1 = artifactsIt.next();
-        Artifact artifact2 = artifactsIt.next();
+        final Iterator<Artifact> artifactsIt = assignedModule.getArtifacts().iterator();
+        final Artifact artifact1 = artifactsIt.next();
+        final Artifact artifact2 = artifactsIt.next();
         assertArtfiactNull(artifact1, artifact2);
 
         // verify: artifact meta data is still available
@@ -258,14 +252,14 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Delete an softwaremodule with an artifact, which is also used by another softwaremodule.")
+
     public void deleteSoftwareModulesWithSharedArtifact() throws IOException {
 
         // Precondition: Make sure MongoDB is Empty
         assertThat(operations.find(new Query())).hasSize(0);
 
         // Init artifact binary data, target and DistributionSets
-        byte[] source = RandomUtils.nextBytes(1024);
+        final byte[] source = RandomUtils.nextBytes(1024);
 
         // [STEP1]: Create SoftwareModuleX and add a new ArtifactX
         SoftwareModule moduleX = createSoftwareModuleWithArtifacts(osType, "modulex", "v1.0", 0);
@@ -273,7 +267,7 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
         // [STEP2]: Create newArtifactX and add it to SoftwareModuleX
         artifactManagement.createLocalArtifact(new ByteArrayInputStream(source), moduleX.getId(), "artifactx", false);
         moduleX = softwareManagement.findSoftwareModuleWithDetails(moduleX.getId());
-        Artifact artifactX = moduleX.getArtifacts().iterator().next();
+        final Artifact artifactX = moduleX.getArtifacts().iterator().next();
 
         // [STEP3]: Create SoftwareModuleY and add the same ArtifactX
         SoftwareModule moduleY = createSoftwareModuleWithArtifacts(osType, "moduley", "v1.0", 0);
@@ -281,7 +275,7 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
         // [STEP4]: Assign the same ArtifactX to SoftwareModuleY
         artifactManagement.createLocalArtifact(new ByteArrayInputStream(source), moduleY.getId(), "artifactx", false);
         moduleY = softwareManagement.findSoftwareModuleWithDetails(moduleY.getId());
-        Artifact artifactY = moduleY.getArtifacts().iterator().next();
+        final Artifact artifactY = moduleY.getArtifacts().iterator().next();
 
         // verify: that only one entry was created in mongoDB
         assertThat(operations.find(new Query())).hasSize(1);
@@ -306,7 +300,7 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Delete two assigned softwaremodules which share an artifact.")
+
     public void deleteMultipleSoftwareModulesWhichShareAnArtifact() throws IOException {
 
         // Precondition: Make sure MongoDB is Empty
@@ -325,14 +319,14 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
 
         artifactManagement.createLocalArtifact(new ByteArrayInputStream(source), moduleX.getId(), "artifactx", false);
         moduleX = softwareManagement.findSoftwareModuleWithDetails(moduleX.getId());
-        Artifact artifactX = moduleX.getArtifacts().iterator().next();
+        final Artifact artifactX = moduleX.getArtifacts().iterator().next();
 
         // [STEP2]: Create SoftwareModuleY and add the same ArtifactX
         SoftwareModule moduleY = createSoftwareModuleWithArtifacts(osType, "moduley", "v1.0", 0);
 
         artifactManagement.createLocalArtifact(new ByteArrayInputStream(source), moduleY.getId(), "artifactx", false);
         moduleY = softwareManagement.findSoftwareModuleWithDetails(moduleY.getId());
-        Artifact artifactY = moduleY.getArtifacts().iterator().next();
+        final Artifact artifactY = moduleY.getArtifacts().iterator().next();
 
         // verify: that only one entry was created in mongoDB
         assertThat(operations.find(new Query())).hasSize(1);
@@ -370,10 +364,10 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
         assertThat(artifactRepository.findOne(artifactY.getId())).isNotNull();
     }
 
-    private SoftwareModule createSoftwareModuleWithArtifacts(SoftwareModuleType type, String name, String version,
-            int numberArtifacts) {
+    private SoftwareModule createSoftwareModuleWithArtifacts(final SoftwareModuleType type, final String name,
+            final String version, final int numberArtifacts) {
 
-        long countSoftwareModule = softwareModuleRepository.count();
+        final long countSoftwareModule = softwareModuleRepository.count();
 
         // create SoftwareModule
         SoftwareModule softwareModule = softwareManagement
@@ -388,7 +382,7 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
         softwareModule = softwareManagement.findSoftwareModuleWithDetails(softwareModule.getId());
         assertThat(softwareModuleRepository.findAll()).hasSize((int) countSoftwareModule + 1);
 
-        List<Artifact> artifacts = softwareModule.getArtifacts();
+        final List<Artifact> artifacts = softwareModule.getArtifacts();
 
         assertThat(artifacts).hasSize(numberArtifacts);
         if (numberArtifacts != 0) {
@@ -448,7 +442,7 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Checks that metadata for a software module can be created.")
+
     public void createSoftwareModuleMetadata() {
 
         final String knownKey1 = "myKnownKey1";
@@ -481,7 +475,7 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
 
     @Test
     @WithUser(allSpPermissions = true)
-    @Description("Checks that metadata for a software module can be updated.")
+
     public void updateSoftwareModuleMetadata() throws InterruptedException {
         final String knownKey = "myKnownKey";
         final String knownValue = "myKnownValue";
@@ -526,7 +520,7 @@ public class SoftwareManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Queries and loads the metadata related to a given software module.")
+
     public void findAllSoftwareModuleMetadataBySwId() {
 
         SoftwareModule sw1 = softwareManagement

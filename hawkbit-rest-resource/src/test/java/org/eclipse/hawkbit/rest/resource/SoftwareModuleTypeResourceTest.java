@@ -36,10 +36,6 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.jayway.jsonpath.JsonPath;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 /**
  * Test for {@link SoftwareModuleTypeResource}.
  *
@@ -47,13 +43,13 @@ import ru.yandex.qatools.allure.annotations.Stories;
  *
  *
  */
-@Features("Component Tests - Management RESTful API")
-@Stories("Software Module Type Resource")
+
+
 public class SoftwareModuleTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/softwaremoduletypes GET requests.")
+    
     public void getSoftwareModuleTypes() throws Exception {
         SoftwareModuleType testType = softwareManagement
                 .createSoftwareModuleType(new SoftwareModuleType("test123", "TestName123", "Desc123", 5));
@@ -95,7 +91,7 @@ public class SoftwareModuleTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/softwaremoduletypes POST requests.")
+    
     public void createSoftwareModuleTypes() throws JSONException, Exception {
 
         final List<SoftwareModuleType> types = new ArrayList<>();
@@ -141,7 +137,7 @@ public class SoftwareModuleTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/softwaremoduletypes/{ID} GET requests.")
+    
     public void getSoftwareModuleType() throws Exception {
         SoftwareModuleType testType = softwareManagement
                 .createSoftwareModuleType(new SoftwareModuleType("test123", "TestName123", "Desc123", 5));
@@ -162,7 +158,7 @@ public class SoftwareModuleTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/softwaremoduletypes/{ID} DELETE requests (hard delete scenario).")
+    
     public void deleteSoftwareModuleTypeUnused() throws Exception {
         final SoftwareModuleType testType = softwareManagement
                 .createSoftwareModuleType(new SoftwareModuleType("test123", "TestName123", "Desc123", 5));
@@ -177,7 +173,7 @@ public class SoftwareModuleTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/softwaremoduletypes/{ID} DELETE requests (soft delete scenario).")
+    
     public void deleteSoftwareModuleTypeUsed() throws Exception {
         final SoftwareModuleType testType = softwareManagement
                 .createSoftwareModuleType(new SoftwareModuleType("test123", "TestName123", "Desc123", 5));
@@ -195,7 +191,7 @@ public class SoftwareModuleTypeResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Checks the correct behaviour of /rest/v1/softwaremoduletypes/{ID} PUT requests.")
+    
     public void updateSoftwareModuleTypeOnlyDescriptionAndNameUntouched() throws Exception {
         final SoftwareModuleType testType = softwareManagement
                 .createSoftwareModuleType(new SoftwareModuleType("test123", "TestName123", "Desc123", 5));
@@ -212,7 +208,7 @@ public class SoftwareModuleTypeResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Checks the correct behaviour of /rest/v1/softwaremoduletypes GET requests with paging.")
+    
     public void getSoftwareModuleTypesWithoutAddtionalRequestParameters() throws Exception {
         final int types = 3;
         mvc.perform(get(RestConstants.SOFTWAREMODULETYPE_V1_REQUEST_MAPPING)).andDo(MockMvcResultPrinter.print())
@@ -223,7 +219,7 @@ public class SoftwareModuleTypeResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Checks the correct behaviour of /rest/v1/softwaremoduletypes GET requests with paging.")
+    
     public void getSoftwareModuleTypesWithPagingLimitRequestParameter() throws Exception {
         final int types = 3;
         final int limitSize = 1;
@@ -236,7 +232,7 @@ public class SoftwareModuleTypeResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Checks the correct behaviour of /rest/v1/softwaremoduletypes GET requests with paging.")
+    
     public void getSoftwareModuleTypesWithPagingLimitAndOffsetRequestParameter() throws Exception {
         final int types = 3;
         final int offsetParam = 2;
@@ -251,7 +247,7 @@ public class SoftwareModuleTypeResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Ensures that the server is behaving as expected on invalid requests (wrong media type, wrong ID etc.).")
+    
     public void invalidRequestsOnSoftwaremoduleTypesResource() throws Exception {
         final SoftwareModuleType testType = softwareManagement
                 .createSoftwareModuleType(new SoftwareModuleType("test123", "TestName123", "Desc123", 5));
@@ -290,7 +286,7 @@ public class SoftwareModuleTypeResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Search erquest of software module types.")
+    
     public void searchSoftwareModuleTypeRsql() throws Exception {
         final SoftwareModuleType testType = softwareManagement
                 .createSoftwareModuleType(new SoftwareModuleType("test123", "TestName123", "Desc123", 5));

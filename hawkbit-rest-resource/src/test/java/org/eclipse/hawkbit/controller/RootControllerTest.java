@@ -40,19 +40,15 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 @ActiveProfiles({ "im", "test" })
-@Features("Component Tests - Controller RESTful API")
-@Stories("Root Poll Resource")
+
+
 // TODO: fully document tests -> @Description for long text and reasonable
 // method name as short text
 public class RootControllerTest extends AbstractIntegrationTestWithMongoDB {
 
     @Test()
-    @Description("Ensures that targets cannot be created e.g. in plug'n play scenarios when tenant does not exists but can be created if the tenant exists.")
+    
     @WithUser(tenantId = "tenantDoesNotExists", allSpPermissions = true, authorities = "ROLE_CONTROLLER", autoCreateTenant = false)
     public void targetCannotBeRegisteredIfTenantDoesNotExistsButWhenExists() throws Exception {
 
@@ -232,7 +228,7 @@ public class RootControllerTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Controller trys to finish an update process after it has been finished by an error action status.")
+    
     public void tryToFinishAnUpdateProcessAfterItHasBeenFinished() throws Exception {
 
         // mock

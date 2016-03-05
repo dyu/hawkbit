@@ -63,13 +63,9 @@ import org.springframework.http.HttpStatus;
 
 import com.google.common.eventbus.EventBus;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 @RunWith(MockitoJUnitRunner.class)
-@Features("AMQP Controller Test")
-@Stories("Tests the servcies for message handler and dispatcher")
+
+
 public class AmqpMessageHandlerServiceTest {
 
     private static final String TENANT = "DEFAULT";
@@ -116,7 +112,7 @@ public class AmqpMessageHandlerServiceTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    @Description("Tests not allowed content-type in message")
+    
     public void testWrongContentType() {
         final MessageProperties messageProperties = new MessageProperties();
         messageProperties.setContentType("xml");
@@ -126,7 +122,7 @@ public class AmqpMessageHandlerServiceTest {
     }
 
     @Test
-    @Description("Tests the creation of a target/thing by calling the same method that incoming RabbitMQ messages would access.")
+    
     public void testCreateThing() {
         final String knownThingId = "1";
         final MessageProperties messageProperties = createMessageProperties(MessageType.THING_CREATED);
@@ -149,7 +145,7 @@ public class AmqpMessageHandlerServiceTest {
     }
 
     @Test
-    @Description("Tests the creation of a thing without a 'reply to' header in message.")
+    
     public void testCreateThingWitoutReplyTo() {
         final MessageProperties messageProperties = createMessageProperties(MessageType.THING_CREATED, null);
         messageProperties.setHeader(MessageHeaderKey.THING_ID, "1");
@@ -165,7 +161,7 @@ public class AmqpMessageHandlerServiceTest {
     }
 
     @Test
-    @Description("Tests the creation of a target/thing without a thingID by calling the same method that incoming RabbitMQ messages would access.")
+    
     public void testCreateThingWithoutID() {
         final MessageProperties messageProperties = createMessageProperties(MessageType.THING_CREATED);
         final Message message = messageConverter.toMessage(new byte[0], messageProperties);
@@ -178,7 +174,7 @@ public class AmqpMessageHandlerServiceTest {
     }
 
     @Test
-    @Description("Tests the call of the same method that incoming RabbitMQ messages would access with an unknown message type.")
+    
     public void testUnknownMessageType() {
         final String type = "bumlux";
         final MessageProperties messageProperties = createMessageProperties(MessageType.THING_CREATED);
@@ -194,7 +190,7 @@ public class AmqpMessageHandlerServiceTest {
     }
 
     @Test
-    @Description("Tests a invalid message without event topic")
+    
     public void testInvalidEventTopic() {
         final MessageProperties messageProperties = createMessageProperties(MessageType.EVENT);
         final Message message = new Message(new byte[0], messageProperties);
@@ -222,7 +218,7 @@ public class AmqpMessageHandlerServiceTest {
     }
 
     @Test
-    @Description("Tests the update of an action of a target without a exist action id")
+    
     public void testUpdateActionStatusWithoutActionId() {
         final MessageProperties messageProperties = createMessageProperties(MessageType.EVENT);
         messageProperties.setHeader(MessageHeaderKey.TOPIC, EventTopic.UPDATE_ACTION_STATUS.name());
@@ -240,7 +236,7 @@ public class AmqpMessageHandlerServiceTest {
     }
 
     @Test
-    @Description("Tests the update of an action of a target without a exist action id")
+    
     public void testUpdateActionStatusWithoutExistActionId() {
         final MessageProperties messageProperties = createMessageProperties(MessageType.EVENT);
         messageProperties.setHeader(MessageHeaderKey.TOPIC, EventTopic.UPDATE_ACTION_STATUS.name());
@@ -258,7 +254,7 @@ public class AmqpMessageHandlerServiceTest {
     }
 
     @Test
-    @Description("Tests that an download request is denied for an artifact which does not exists")
+    
     public void authenticationRequestDeniedForArtifactWhichDoesNotExists() {
         final MessageProperties messageProperties = createMessageProperties(MessageType.AUTHENTIFICATION);
         final TenantSecruityToken securityToken = new TenantSecruityToken(TENANT, "123", "12345");
@@ -276,7 +272,7 @@ public class AmqpMessageHandlerServiceTest {
     }
 
     @Test
-    @Description("Tests that an download request is denied for an artifact which is not assigned to the requested target")
+    
     public void authenticationRequestDeniedForArtifactWhichIsNotAssignedToTarget() {
         final MessageProperties messageProperties = createMessageProperties(MessageType.AUTHENTIFICATION);
         final TenantSecruityToken securityToken = new TenantSecruityToken(TENANT, "123", "12345");
@@ -299,7 +295,7 @@ public class AmqpMessageHandlerServiceTest {
     }
 
     @Test
-    @Description("Tests that an download request is allowed for an artifact which exists and assigned to the requested target")
+    
     public void authenticationRequestAllowedForArtifactWhichExistsAndAssignedToTarget() throws MalformedURLException {
         final MessageProperties messageProperties = createMessageProperties(MessageType.AUTHENTIFICATION);
         final TenantSecruityToken securityToken = new TenantSecruityToken(TENANT, "123", "12345");
@@ -332,7 +328,7 @@ public class AmqpMessageHandlerServiceTest {
     }
 
     @Test
-    @Description("Tests TODO")
+    
     public void lookupNextUpdateActionAfterFinished() throws IllegalArgumentException, IllegalAccessException {
 
         // Mock

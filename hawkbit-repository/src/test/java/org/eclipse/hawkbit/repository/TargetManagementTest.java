@@ -44,18 +44,14 @@ import org.eclipse.hawkbit.repository.model.TargetTag;
 import org.junit.Test;
 import org.springframework.data.domain.PageRequest;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 import com.google.common.collect.Iterables;
 
-@Features("Component Tests - Repository")
-@Stories("Target Management")
+
+
 public class TargetManagementTest extends AbstractIntegrationTest {
 
     @Test
-    @Description("Ensures that targets cannot be created e.g. in plug'n play scenarios when tenant does not exists.")
+    
     @WithUser(tenantId = "tenantWhichDoesNotExists", allSpPermissions = true, autoCreateTenant = false)
     public void createTargetForTenantWhichDoesNotExistThrowsTenantNotExistException() {
         try {
@@ -66,7 +62,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Ensures that targets can assigned and unassigned to a target tag. Not exists target will be ignored for the assignment.")
+    
     public void assignAndUnassignTargetsToTag() {
         final List<String> assignTarget = new ArrayList<String>();
         assignTarget.add(targetManagement.createTarget(new Target("targetId123")).getControllerId());
@@ -100,7 +96,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Ensures that targets can deleted e.g. test all cascades")
+    
     public void deleteAndCreateTargets() {
         Target target = targetManagement.createTarget(new Target("targetId123"));
         assertThat(targetManagement.countTargetsAll()).isEqualTo(1);
@@ -137,7 +133,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Finds a target by given ID and checks if all data is in the reponse (including the data defined as lazy).")
+    
     public void findTargetByControllerIDWithDetails() {
         final DistributionSet set = TestDataUtil.generateDistributionSet("test", softwareManagement,
                 distributionSetManagement);
@@ -176,7 +172,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Checks if the EntityAlreadyExistsException is thrown if the targets with the same controller ID are created twice.")
+    
     public void createMultipleTargetsDuplicate() {
         final List<Target> targets = TestDataUtil.buildTargetFixtures(5, "mySimpleTargs", "my simple targets");
         targetManagement.createTargets(targets);
@@ -189,7 +185,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Checks if the EntityAlreadyExistsException is thrown if a single target with the same controller ID are created twice.")
+    
     public void createTargetDuplicate() {
         targetManagement.createTarget(new Target("4711"));
         try {
@@ -249,7 +245,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(allSpPermissions = true)
-    @Description("Creates and updates a target and verifies the changes in the repository.")
+    
     public void singleTargetIsInsertedIntoRepo() throws Exception {
 
         final String myCtrlID = "myCtrlID";
@@ -284,7 +280,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(allSpPermissions = true)
-    @Description("Create multiple tragets as bulk operation and delete them in bulk.")
+    
     public void bulkTargetCreationAndDelete() throws Exception {
         final String myCtrlID = "myCtrlID";
         final List<Target> firstList = TestDataUtil.buildTargetFixtures(100, myCtrlID, "first description");
@@ -349,7 +345,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Stores target attributes and verfies existence in the repository.")
+    
     public void savingTargetControllerAttributes() {
         Iterable<Target> ts = targetManagement.createTargets(TestDataUtil.buildTargetFixtures(100, "myCtrlID",
                 "first description"));
@@ -447,7 +443,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests the assigment of tags to the a single target.")
+    
     public void targetTagAssignment() {
         Target t1 = TestDataUtil.buildTargetFixture("id-1", "blablub");
         final int noT2Tags = 4;
@@ -473,7 +469,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests the assigment of tags to multiple targets.")
+    
     public void targetTagBulkAssignments() {
         final List<Target> tagATargets = targetManagement.createTargets(TestDataUtil.buildTargetFixtures(10,
                 "tagATargets", "first description"));
@@ -543,7 +539,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Tests the unassigment of tags to multiple targets.")
+    
     public void targetTagBulkUnassignments() {
         final TargetTag targTagA = tagManagement.createTargetTag(new TargetTag("Targ-A-Tag"));
         final TargetTag targTagB = tagManagement.createTargetTag(new TargetTag("Targ-B-Tag"));
@@ -606,7 +602,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Retrieves targets by ID with lazy loading of the tags. Checks the successfull load.")
+    
     public void findTargetsByControllerIDsWithTags() {
         final TargetTag targTagA = tagManagement.createTargetTag(new TargetTag("Targ-A-Tag"));
 
@@ -629,7 +625,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Test the optimized quere for retrieving all ID/name pairs of targets.")
+    
     public void findAllTargetIdNamePaiss() {
         final List<Target> targAs = targetManagement.createTargets(TestDataUtil.buildTargetFixtures(25, "target-id-A",
                 "first description"));
@@ -644,7 +640,7 @@ public class TargetManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Test that NO TAG functionality which gives all targets with no tag assigned.")
+    
     public void findTargetsWithNoTag() {
 
         final TargetTag targTagA = tagManagement.createTargetTag(new TargetTag("Targ-A-Tag"));

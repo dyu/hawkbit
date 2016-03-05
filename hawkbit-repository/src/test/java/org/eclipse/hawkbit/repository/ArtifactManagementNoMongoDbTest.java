@@ -18,10 +18,6 @@ import org.eclipse.hawkbit.repository.model.SoftwareModule;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 /**
  * Addition tests next to {@link ArtifactManagementTest} with no running MongoDB
  *
@@ -29,8 +25,8 @@ import ru.yandex.qatools.allure.annotations.Stories;
  *
  *
  */
-@Features("Component Tests - Repository")
-@Stories("Artifact Management")
+
+
 public class ArtifactManagementNoMongoDbTest extends AbstractIntegrationTest {
 
     @BeforeClass
@@ -41,7 +37,7 @@ public class ArtifactManagementNoMongoDbTest extends AbstractIntegrationTest {
     }
 
     @Test(expected = ArtifactUploadFailedException.class)
-    @Description("Checks if the expected ArtifactUploadFailedException is thrown in case of MongoDB down")
+    
     public void createLocalArtifactWithMongoDbDown() throws IOException {
         SoftwareModule sm = new SoftwareModule(softwareManagement.findSoftwareModuleTypeByKey("os"), "name 1",
                 "version 1", null, null);

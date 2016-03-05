@@ -15,10 +15,6 @@ import org.eclipse.hawkbit.repository.exception.EntityAlreadyExistsException;
 import org.eclipse.hawkbit.repository.model.TargetFilterQuery;
 import org.junit.Test;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 /**
  * Test class for {@link TargetFilterQueryManagement}.
  * 
@@ -26,12 +22,12 @@ import ru.yandex.qatools.allure.annotations.Stories;
  *
  */
 
-@Features("Component Tests - Repository")
-@Stories("Target Filter Query Management")
+
+
 public class TargetFilterQueryManagenmentTest extends AbstractIntegrationTest {
 
     @Test
-    @Description("Test creation of target filter query.")
+    
     public void createTargetFilterQuery() {
         final String filterName = "new target filter";
         final TargetFilterQuery targetFilterQuery = targetFilterQueryManagement
@@ -41,7 +37,7 @@ public class TargetFilterQueryManagenmentTest extends AbstractIntegrationTest {
     }
 
     @Test(expected = EntityAlreadyExistsException.class)
-    @Description("Checks if the EntityAlreadyExistsException is thrown if a targetfilterquery with the same name are created more than once.")
+    
     public void createDuplicateTargetFilterQuery() {
         final String filterName = "new target filter duplicate";
         targetFilterQueryManagement
@@ -52,7 +48,7 @@ public class TargetFilterQueryManagenmentTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Test deletion of target filter query.")
+    
     public void deleteTargetFilterQuery() {
         final String filterName = "delete_target_filter_query";
         final TargetFilterQuery targetFilterQuery = targetFilterQueryManagement
@@ -64,7 +60,7 @@ public class TargetFilterQueryManagenmentTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Test updation of target filter query.")
+    
     public void updateTargetFilterQuery() {
         final String filterName = "target_filter_01";
         final TargetFilterQuery targetFilterQuery = targetFilterQueryManagement

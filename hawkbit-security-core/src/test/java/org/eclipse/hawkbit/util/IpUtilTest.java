@@ -28,20 +28,16 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.google.common.net.HttpHeaders;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 @RunWith(MockitoJUnitRunner.class)
-@Features("IpUtil Test")
-@Stories("Tests the created uris")
+
+
 public class IpUtilTest {
 
     @Mock
     private HttpServletRequest requestMock;
 
     @Test
-    @Description("Tests create uri from request")
+    
     public void getRemoteAddrFromRequestIfForwaredHeaderNotPresent() {
         // known values
         final URI knownRemoteClientIP = IpUtil.createHttpUri("127.0.0.1");
@@ -59,7 +55,7 @@ public class IpUtilTest {
     }
 
     @Test
-    @Description("Tests create uri from x forward header")
+    
     public void getRemoteAddrFromXForwardedForHeader() {
         // known values
         final URI knownRemoteClientIP = IpUtil.createHttpUri("10.99.99.1");
@@ -77,7 +73,7 @@ public class IpUtilTest {
     }
 
     @Test
-    @Description("Tests create http uri ipv4 and ipv6")
+    
     public void testCreateHttpUri() {
         final String ipv4 = "10.99.99.1";
         URI httpUri = IpUtil.createHttpUri(ipv4);
@@ -101,7 +97,7 @@ public class IpUtilTest {
     }
 
     @Test
-    @Description("Tests create amqp uri ipv4 and ipv6")
+    
     public void testCreateAmqpUri() {
         final String ipv4 = "10.99.99.1";
         URI amqpUri = IpUtil.createAmqpUri(ipv4);
@@ -124,7 +120,7 @@ public class IpUtilTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    @Description("Tests create invalid uri")
+    
     public void testCreateInvalidUri() {
         final String host = "10.99.99.1";
         final URI testUri = IpUtil.createUri("test", host);

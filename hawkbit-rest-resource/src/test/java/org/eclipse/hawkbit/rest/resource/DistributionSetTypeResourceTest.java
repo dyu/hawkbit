@@ -39,10 +39,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import com.google.common.collect.Lists;
 import com.jayway.jsonpath.JsonPath;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 /**
  * Test for {@link DistributionSetTypeResource}.
  *
@@ -50,13 +46,13 @@ import ru.yandex.qatools.allure.annotations.Stories;
  *
  *
  */
-@Features("Component Tests - Management RESTful API")
-@Stories("Distribution Set Type Resource")
+
+
 public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes GET requests.")
+    
     public void getDistributionSetTypes() throws Exception {
 
         DistributionSetType testType = distributionSetManagement
@@ -94,7 +90,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes POST requests.")
+    
     public void createDistributionSetTypes() throws JSONException, Exception {
 
         assertThat(distributionSetManagement.countDistributionSetTypesAll()).isEqualTo(3);
@@ -167,7 +163,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes/{ID}/mandatorymoduletypes POST requests.")
+    
     public void addMandatoryModuleToDistributionSetType() throws JSONException, Exception {
         DistributionSetType testType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("test123", "TestName123", "Desc123"));
@@ -186,7 +182,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes/{ID}/optionalmoduletypes POST requests.")
+    
     public void addOptionalModuleToDistributionSetType() throws JSONException, Exception {
         DistributionSetType testType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("test123", "TestName123", "Desc123"));
@@ -206,7 +202,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes/{ID}/mandatorymoduletypes GET requests.")
+    
     public void getMandatoryModulesOfDistributionSetType() throws JSONException, Exception {
         final DistributionSetType testType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("test123", "TestName123", "Desc123")
@@ -225,7 +221,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes/{ID}/optionalmoduletypes GET requests.")
+    
     public void getOptionalModulesOfDistributionSetType() throws JSONException, Exception {
         final DistributionSetType testType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("test123", "TestName123", "Desc123")
@@ -245,7 +241,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes/{ID}/mandatorymoduletypes/{ID} GET requests.")
+    
     public void getMandatoryModuleOfDistributionSetType() throws JSONException, Exception {
         final DistributionSetType testType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("test123", "TestName123", "Desc123")
@@ -267,7 +263,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes/{ID}/optionalmoduletypes/{ID} GET requests.")
+    
     public void getOptionalModuleOfDistributionSetType() throws JSONException, Exception {
         final DistributionSetType testType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("test123", "TestName123", "Desc123")
@@ -289,7 +285,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes/{ID}/mandatorymoduletypes/{ID} DELETE requests.")
+    
     public void removeMandatoryModuleToDistributionSetType() throws JSONException, Exception {
         DistributionSetType testType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("test123", "TestName123", "Desc123")
@@ -311,7 +307,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes/{ID}/optionalmoduletypes/{ID} DELETE requests.")
+    
     public void removeOptionalModuleToDistributionSetType() throws JSONException, Exception {
         DistributionSetType testType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("test123", "TestName123", "Desc123")
@@ -333,7 +329,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes/{ID} GET requests.")
+    
     public void getDistributionSetType() throws Exception {
 
         DistributionSetType testType = distributionSetManagement
@@ -353,7 +349,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/DistributionSetTypes/{ID} DELETE requests (hard delete scenario).")
+    
     public void deleteDistributionSetTypeUnused() throws Exception {
         final DistributionSetType testType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("test123", "TestName123", "Desc123"));
@@ -368,7 +364,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
 
     @Test
     @WithUser(principal = "uploadTester", allSpPermissions = true)
-    @Description("Checks the correct behaviour of /rest/v1/DistributionSetTypes/{ID} DELETE requests (soft delete scenario).")
+    
     public void deleteDistributionSetTypeUsed() throws Exception {
         final DistributionSetType testType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("test123", "TestName123", "Desc123"));
@@ -386,7 +382,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes/{ID} PUT requests.")
+    
     public void updateDistributionSetTypeOnlyDescriptionAndNameUntouched() throws Exception {
         final DistributionSetType testType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("test123", "TestName123", "Desc123"));
@@ -402,7 +398,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes GET requests with paging.")
+    
     public void getDistributionSetTypesWithoutAddtionalRequestParameters() throws Exception {
         final int types = 3;
         mvc.perform(get(RestConstants.DISTRIBUTIONSETTYPE_V1_REQUEST_MAPPING)).andDo(MockMvcResultPrinter.print())
@@ -413,7 +409,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes GET requests with paging.")
+    
     public void getDistributionSetTypesWithPagingLimitRequestParameter() throws Exception {
         final int types = 3;
         final int limitSize = 1;
@@ -426,7 +422,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Checks the correct behaviour of /rest/v1/distributionsettypes GET requests with paging.")
+    
     public void getDistributionSetTypesWithPagingLimitAndOffsetRequestParameter() throws Exception {
         final int types = 3;
         final int offsetParam = 2;
@@ -441,7 +437,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Ensures that the server is behaving as expected on invalid requests (wrong media type, wrong ID etc.).")
+    
     public void invalidRequestsOnDistributionSetTypesResource() throws Exception {
         final DistributionSetType testType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("test123", "TestName123", "Desc123"));
@@ -522,7 +518,7 @@ public class DistributionSetTypeResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Search erquest of software module types.")
+    
     public void searchDistributionSetTypeRsql() throws Exception {
         final DistributionSetType testType = distributionSetManagement
                 .createDistributionSetType(new DistributionSetType("test123", "TestName123", "Desc123"));

@@ -24,16 +24,12 @@ import org.eclipse.hawkbit.repository.model.Target;
 import org.eclipse.hawkbit.repository.model.TargetUpdateStatus;
 import org.junit.Test;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
 
-@Features("Component Tests - Repository")
-@Stories("Controller Management")
+
 public class ControllerManagementTest extends AbstractIntegrationTest {
 
     @Test
-    @Description("Controller adds a new action status.")
+    
     public void controllerAddsActionStatus() {
         final Target target = new Target("4712");
         final DistributionSet ds = TestDataUtil.generateDistributionSet("", softwareManagement,
@@ -72,7 +68,7 @@ public class ControllerManagementTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("Controller trys to finish an update process after it has been finished by an error action status.")
+    
     public void tryToFinishUpdateProcessMoreThenOnce() {
 
         // mock

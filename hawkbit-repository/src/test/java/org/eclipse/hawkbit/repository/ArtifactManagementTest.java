@@ -37,10 +37,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 /**
  * Test class for {@link ArtifactManagement} with running MongoDB instance..
  *
@@ -48,8 +44,7 @@ import ru.yandex.qatools.allure.annotations.Stories;
  *
  *
  */
-@Features("Component Tests - Repository")
-@Stories("Artifact Management")
+
 public class ArtifactManagementTest extends AbstractIntegrationTestWithMongoDB {
     public ArtifactManagementTest() {
         LOG = LoggerFactory.getLogger(ArtifactManagementTest.class);
@@ -64,7 +59,7 @@ public class ArtifactManagementTest extends AbstractIntegrationTestWithMongoDB {
      * @throws NoSuchAlgorithmException
      */
     @Test
-    @Description("Test if a local artifact can be created by API including metadata.")
+
     public void createLocalArtifact() throws NoSuchAlgorithmException, IOException {
         // checkbaseline
         assertThat(softwareModuleRepository.findAll()).hasSize(0);
@@ -114,7 +109,7 @@ public class ArtifactManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Tests hard delete directly on repository.")
+
     public void hardDeleteSoftwareModule() throws NoSuchAlgorithmException, IOException {
         SoftwareModule sm = new SoftwareModule(softwareManagement.findSoftwareModuleTypeByKey("os"), "name 1",
                 "version 1", null, null);
@@ -135,7 +130,7 @@ public class ArtifactManagementTest extends AbstractIntegrationTestWithMongoDB {
      * .
      */
     @Test
-    @Description("Tests the creation of an external artifact metadata element.")
+
     public void createExternalArtifact() {
         SoftwareModule sm = new SoftwareModule(softwareManagement.findSoftwareModuleTypeByKey("os"), "name 1",
                 "version 1", null, null);
@@ -164,7 +159,7 @@ public class ArtifactManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Tests deletio of an external artifact metadata element.")
+
     public void deleteExternalArtifact() {
         assertThat(artifactRepository.findAll()).isEmpty();
 
@@ -192,7 +187,7 @@ public class ArtifactManagementTest extends AbstractIntegrationTestWithMongoDB {
      * @throws NoSuchAlgorithmException
      */
     @Test
-    @Description("Tests the deletion of a local artifact including metadata.")
+
     public void deleteLocalArtifact() throws NoSuchAlgorithmException, IOException {
         SoftwareModule sm = new SoftwareModule(softwareManagement.findSoftwareModuleTypeByKey("os"), "name 1",
                 "version 1", null, null);
@@ -239,7 +234,7 @@ public class ArtifactManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Trys and fails to delete local artifact with a down mongodb and checks if expected ArtifactDeleteFailedException is thrown.")
+
     public void deleteArtifactsWithNoMongoDb() throws UnknownHostException, IOException {
         // ensure baseline
         assertThat(artifactRepository.findAll()).isEmpty();
@@ -269,8 +264,6 @@ public class ArtifactManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Test the deletion of an artifact metadata where the binary is still linked to another "
-            + "metadata element. The expected result is that the metadata is deleted but the binary kept.")
     public void deleteDuplicateArtifacts() throws NoSuchAlgorithmException, IOException {
         SoftwareModule sm = new SoftwareModule(softwareManagement.findSoftwareModuleTypeByKey("os"), "name 1",
                 "version 1", null, null);
@@ -316,7 +309,7 @@ public class ArtifactManagementTest extends AbstractIntegrationTestWithMongoDB {
      * @throws NoSuchAlgorithmException
      */
     @Test
-    @Description("Loads an artifact based on given ID.")
+
     public void findArtifact() throws NoSuchAlgorithmException, IOException {
         SoftwareModule sm = new SoftwareModule(softwareManagement.findSoftwareModuleTypeByKey("os"), "name 1",
                 "version 1", null, null);
@@ -337,7 +330,7 @@ public class ArtifactManagementTest extends AbstractIntegrationTestWithMongoDB {
      * @throws NoSuchAlgorithmException
      */
     @Test
-    @Description("Loads an artifact binary based on given ID.")
+
     public void loadStreamOfLocalArtifact() throws NoSuchAlgorithmException, IOException {
         SoftwareModule sm = new SoftwareModule(softwareManagement.findSoftwareModuleTypeByKey("os"), "name 1",
                 "version 1", null, null);
@@ -354,13 +347,13 @@ public class ArtifactManagementTest extends AbstractIntegrationTestWithMongoDB {
 
     @Test(expected = InsufficientPermissionException.class)
     @WithUser(allSpPermissions = true, removeFromAllPermission = { SpPermission.DOWNLOAD_REPOSITORY_ARTIFACT })
-    @Description("Trys and fails to load an artifact without required permission. Checks if expected InsufficientPermissionException is thrown.")
+
     public void loadLocalArtifactBinaryWithoutDownloadArtifactThrowsPermissionDenied() {
         artifactManagement.loadLocalArtifactBinary(new LocalArtifact());
     }
 
     @Test
-    @Description("Searches an artifact through the relations of a software module.")
+
     public void findLocalArtifactBySoftwareModule() {
         SoftwareModule sm = new SoftwareModule(osType, "name 1", "version 1", null, null);
         sm = softwareManagement.createSoftwareModule(sm);
@@ -377,7 +370,7 @@ public class ArtifactManagementTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Searches an artifact through the relations of a software module and the filename.")
+
     public void findByFilenameAndSoftwareModule() {
         SoftwareModule sm = new SoftwareModule(osType, "name 1", "version 1", null, null);
         sm = softwareManagement.createSoftwareModule(sm);

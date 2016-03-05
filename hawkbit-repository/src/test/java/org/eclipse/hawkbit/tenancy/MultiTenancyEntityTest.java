@@ -22,10 +22,6 @@ import org.junit.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Slice;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 /**
  * Multi-Tenancy tests which testing the CRUD operations of entities that all
  * CRUD-Operations are tenant aware and cannot access or delete entities not
@@ -35,12 +31,12 @@ import ru.yandex.qatools.allure.annotations.Stories;
  *
  *
  */
-@Features("Component Tests - Repository")
-@Stories("Multi Tenancy")
+
+
 public class MultiTenancyEntityTest extends AbstractIntegrationTest {
 
     @Test
-    @Description(value = "Ensures that multiple targets with same controller-ID can be created for different tenants.")
+    
     public void createMultipleTargetsWithSameIdForDifferentTenant() throws Exception {
         // known controller ID for overall tenants same
         final String knownControllerId = "controllerId";
@@ -64,7 +60,7 @@ public class MultiTenancyEntityTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description(value = "Ensures that targtes created by a tenant are not visible by another tenant.")
+    
     @WithUser(tenantId = "mytenant", allSpPermissions = true)
     public void queryTargetFromDifferentTenantIsNotVisible() throws Exception {
         // create target for another tenant
@@ -84,7 +80,7 @@ public class MultiTenancyEntityTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description(value = "Ensures that tenant metadata is retrieved for the current tenant.")
+    
     @WithUser(tenantId = "mytenant", autoCreateTenant = false, allSpPermissions = true)
     public void getTenanatMetdata() throws Exception {
 
@@ -107,7 +103,7 @@ public class MultiTenancyEntityTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description(value = "Ensures that targets created from a different tenant cannot be deleted from other tenants")
+    
     @WithUser(tenantId = "mytenant", allSpPermissions = true)
     public void deleteTargetFromOtherTenantIsNotPossible() throws Exception {
         // create target for another tenant
@@ -127,7 +123,7 @@ public class MultiTenancyEntityTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description(value = "Ensures that multiple distribution sets with same name and version can be created for different tenants.")
+    
     public void createMultipleDistributionSetsWithSameNameForDifferentTenants() throws Exception {
 
         // known ds name for overall tenants same

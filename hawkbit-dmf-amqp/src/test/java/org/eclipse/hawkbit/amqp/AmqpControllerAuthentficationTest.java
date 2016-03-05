@@ -39,16 +39,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 /**
  *
  *
  */
-@Features("AMQP Authenfication Test")
-@Stories("Tests the authenfication")
+
+
 public class AmqpControllerAuthentficationTest {
 
     private static final String TENANT = "DEFAULT";
@@ -87,7 +83,7 @@ public class AmqpControllerAuthentficationTest {
     }
 
     @Test(expected = BadCredentialsException.class)
-    @Description("Tests authentication manager without principal")
+    
     public void testAuthenticationeBadCredantialsWithoutPricipal() {
         final TenantSecruityToken securityToken = new TenantSecruityToken(TENANT, CONTROLLLER_ID, "12345");
         authenticationManager.doAuthenticate(securityToken);
@@ -95,7 +91,7 @@ public class AmqpControllerAuthentficationTest {
     }
 
     @Test(expected = BadCredentialsException.class)
-    @Description("Tests authentication manager  without wrong credential")
+    
     public void testAuthenticationBadCredantialsWithWrongCredential() {
         final TenantSecruityToken securityToken = new TenantSecruityToken(TENANT, CONTROLLLER_ID, "12345");
         when(systemManagement.getConfigurationValue(
@@ -107,7 +103,7 @@ public class AmqpControllerAuthentficationTest {
     }
 
     @Test
-    @Description("Tests authentication successfull")
+    
     public void testSuccessfullAuthentication() {
         final TenantSecruityToken securityToken = new TenantSecruityToken(TENANT, CONTROLLLER_ID, "12345");
         when(systemManagement.getConfigurationValue(
@@ -119,7 +115,7 @@ public class AmqpControllerAuthentficationTest {
     }
 
     @Test
-    @Description("Tests authentication message without principal")
+    
     public void testAuthenticationMessageBadCredantialsWithoutPricipal() {
         final MessageProperties messageProperties = createMessageProperties(MessageType.AUTHENTIFICATION);
 
@@ -138,7 +134,7 @@ public class AmqpControllerAuthentficationTest {
     }
 
     @Test
-    @Description("Tests authentication message without wrong credential")
+    
     public void testAuthenticationMessageBadCredantialsWithWrongCredential() {
         final MessageProperties messageProperties = createMessageProperties(MessageType.AUTHENTIFICATION);
         final TenantSecruityToken securityToken = new TenantSecruityToken(TENANT, CONTROLLLER_ID, "12345");
@@ -160,7 +156,7 @@ public class AmqpControllerAuthentficationTest {
     }
 
     @Test
-    @Description("Tests authentication message successfull")
+    
     public void testSuccessfullMessageAuthentication() {
         final MessageProperties messageProperties = createMessageProperties(MessageType.AUTHENTIFICATION);
         final TenantSecruityToken securityToken = new TenantSecruityToken(TENANT, CONTROLLLER_ID, "12345");

@@ -39,6 +39,7 @@ import org.eclipse.hawkbit.repository.model.TargetUpdateStatus;
 import org.eclipse.hawkbit.rest.resource.JsonBuilder;
 import org.fest.assertions.core.Condition;
 import org.junit.Test;
+import org.springframework.context.annotation.Description;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -47,17 +48,12 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 
-import ru.yandex.qatools.allure.annotations.Description;
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
 @ActiveProfiles({ "im", "test" })
-@Features("Component Tests - Controller RESTful API")
-@Stories("Deployment Action Resource")
+
 public class DeploymentBaseTest extends AbstractIntegrationTestWithMongoDB {
 
     @Test()
-    @Description("Ensures that artifacts are not found, when softare module does not exists.")
+
     public void artifactsNotFound() throws Exception {
         final Target target = TestDataUtil.createTarget(targetManagement);
         final Long softwareModuleIdNotExist = 1l;
@@ -67,7 +63,7 @@ public class DeploymentBaseTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test()
-    @Description("Ensures that artifacts are found, when software module exists.")
+
     public void artifactsExists() throws Exception {
         final Target target = TestDataUtil.createTarget(targetManagement);
         final DistributionSet distributionSet = TestDataUtil.generateDistributionSet("", softwareManagement,
@@ -92,7 +88,7 @@ public class DeploymentBaseTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Forced deployment to a controller. Checks if the resource reponse payload for a given deployment is as expected.")
+
     public void deplomentForceAction() throws Exception {
         // Prepare test data
         final Target target = new Target("4712");
@@ -213,7 +209,7 @@ public class DeploymentBaseTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Attempt/soft deployment to a controller. Checks if the resource reponse payload  for a given deployment is as expected.")
+
     public void deplomentAttemptAction() throws Exception {
         // Prepare test data
         final Target target = new Target("4712");
@@ -336,7 +332,7 @@ public class DeploymentBaseTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Attempt/soft deployment to a controller including automated switch to hard. Checks if the resource reponse payload  for a given deployment is as expected.")
+
     public void deplomentAutoForceAction() throws Exception {
         // Prepare test data
         final Target target = new Target("4712");
@@ -456,7 +452,7 @@ public class DeploymentBaseTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Test various invalid access attempts to the deployment resource und the expected behaviour of the server.")
+
     public void badDeploymentAction() throws Exception {
         final Target target = targetManagement.createTarget(new Target("4712"));
 
@@ -525,7 +521,7 @@ public class DeploymentBaseTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Multiple uploads of deployment status feedback to the server.")
+
     public void multipleDeplomentActionFeedback() throws Exception {
         final Target target1 = new Target("4712");
         final Target target2 = new Target("4713");
@@ -627,7 +623,7 @@ public class DeploymentBaseTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Verfies that an update action is correctly set to error if the controller provides error feedback.")
+
     public void rootRsSingleDeplomentActionWithErrorFeedback() throws Exception {
         final Target target = new Target("4712");
         DistributionSet ds = TestDataUtil.generateDistributionSet("", softwareManagement, distributionSetManagement);
@@ -703,7 +699,7 @@ public class DeploymentBaseTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Verfies that the controller can provided as much feedback entries as necessry as long as it is in the configured limites.")
+
     public void rootRsSingleDeplomentActionFeedback() throws Exception {
         final Target target = new Target("4712");
         final DistributionSet ds = TestDataUtil.generateDistributionSet("", softwareManagement,
@@ -855,7 +851,7 @@ public class DeploymentBaseTest extends AbstractIntegrationTestWithMongoDB {
     }
 
     @Test
-    @Description("Various forbidden request appempts on the feedback resource. Ensures correct answering behaviour as expected to these kind of errors.")
+
     public void badDeplomentActionFeedback() throws Exception {
         final Target target = new Target("4712");
         final Target target2 = new Target("4713");

@@ -76,11 +76,6 @@
          <artifactId>fest-assert</artifactId>
          <scope>test</scope>
       </dependency>
-      <dependency>
-         <groupId>ru.yandex.qatools.allure</groupId>
-         <artifactId>allure-junit-adaptor</artifactId>
-         <scope>test</scope>
-      </dependency>
    </dependencies>
 
 </project>

@@ -49,29 +49,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.context.annotation.Description;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 
 import com.google.common.collect.Lists;
 import com.jayway.jsonpath.JsonPath;
 
-import ru.yandex.qatools.allure.annotations.Features;
-import ru.yandex.qatools.allure.annotations.Stories;
-
-/**
- *
- *
- *
- */
-@Features("Component Tests - Management RESTful API")
-@Stories("Distribution Set Resource")
-// TODO: fully document tests -> @Description for long text and reasonable
-// method name as short text
 public class DistributionSetResourceTest extends AbstractIntegrationTest {
 
     @Test
-    @Description("This test verifies the call of all Software Modules that are assiged to a Distribution Set through the RESTful API.")
     public void getSoftwaremodules() throws Exception {
         // Create DistributionSet with three software modules
         final DistributionSet set = TestDataUtil.generateDistributionSet("SMTest", softwareManagement,
@@ -82,7 +68,7 @@ public class DistributionSetResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("This test verifies the deletion of a assigned Software Module of a Distribution Set can not be achieved when that Distribution Set has been assigned or installed to a target.")
+    
     public void deleteFailureWhenDistributionSetInUse() throws Exception {
 
         // create DisSet
@@ -125,7 +111,7 @@ public class DistributionSetResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("This test verifies that the assignment of a Software Module to a Distribution Set can not be achieved when that Distribution Set has been assigned or installed to a target.")
+    
     public void assignmentFailureWhenAssigningToUsedDistributionSet() throws Exception {
 
         // create DisSet
@@ -176,7 +162,7 @@ public class DistributionSetResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("This test verifies the assignment of Software Modules to a Distribution Set through the RESTful API.")
+    
     public void assignSoftwaremoduleToDistributionSet() throws Exception {
 
         // create DisSet
@@ -212,7 +198,7 @@ public class DistributionSetResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Description("This test verifies the removal of Software Modules of a Distribution Set through the RESTful API.")
+    
     public void unassignSoftwaremoduleFromDistributionSet() throws Exception {
 
         // Create DistributionSet with three software modules
