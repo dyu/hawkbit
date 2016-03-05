@@ -16,6 +16,7 @@ import java.util.Random;
 import java.util.UUID;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.eclipse.hawkbit.repository.ArtifactManagement;
 import org.eclipse.hawkbit.repository.DistributionSetManagement;
 import org.eclipse.hawkbit.repository.SoftwareManagement;
@@ -31,8 +32,6 @@ import org.eclipse.hawkbit.repository.model.TargetTag;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 
-import net._01001111.text.LoremIpsum;
-
 /**
  * Data generator utility for tests.
  *
@@ -40,7 +39,6 @@ import net._01001111.text.LoremIpsum;
  *
  */
 public class TestDataUtil {
-    private static final LoremIpsum LOREM = new LoremIpsum();
 
     public static List<DistributionSet> generateDistributionSets(final String suffix, final int number,
             final SoftwareManagement softwareManagement, final DistributionSetManagement distributionSetManagement) {
@@ -73,16 +71,17 @@ public class TestDataUtil {
             final SoftwareManagement softwareManagement, final DistributionSetManagement distributionSetManagement,
             final boolean isRequiredMigrationStep) {
 
-        final SoftwareModule ah = softwareManagement.createSoftwareModule(new SoftwareModule(
-                findOrCreateSoftwareModuleType(softwareManagement, "application"), suffix + "application",
-                version + "." + new Random().nextInt(100), LOREM.words(20), suffix + " vendor Limited, California"));
+        final SoftwareModule ah = softwareManagement.createSoftwareModule(
+                new SoftwareModule(findOrCreateSoftwareModuleType(softwareManagement, "application"),
+                        suffix + "application", version + "." + new Random().nextInt(100), RandomStringUtils.random(50),
+                        suffix + " vendor Limited, California"));
         final SoftwareModule jvm = softwareManagement
                 .createSoftwareModule(new SoftwareModule(findOrCreateSoftwareModuleType(softwareManagement, "runtime"),
-                        suffix + "app runtime", version + "." + new Random().nextInt(100), LOREM.words(20),
+                        suffix + "app runtime", version + "." + new Random().nextInt(100), RandomStringUtils.random(50),
                         suffix + " vendor GmbH, Stuttgart, Germany"));
         final SoftwareModule os = softwareManagement
                 .createSoftwareModule(new SoftwareModule(findOrCreateSoftwareModuleType(softwareManagement, "os"),
-                        suffix + " Firmware", version + "." + new Random().nextInt(100), LOREM.words(20),
+                        suffix + " Firmware", version + "." + new Random().nextInt(100), RandomStringUtils.random(50),
                         suffix + " vendor Limited Inc, California"));
 
         final List<SoftwareModuleType> mand = new ArrayList<>();

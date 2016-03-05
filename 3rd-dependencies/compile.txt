@@ -23,7 +23,6 @@
    javax.servlet:javax.servlet-api:jar:3.1.0:compile
    javax.transaction:javax.transaction-api:jar:1.2:compile
    javax.validation:validation-api:jar:1.1.0.Final:compile
-   net._01001111:jlorem:jar:1.1:compile
    org.apache.commons:commons-lang3:jar:3.4:compile
    org.apache.logging.log4j:log4j-api:jar:2.1:compile
    org.apache.logging.log4j:log4j-core:jar:2.1:compile

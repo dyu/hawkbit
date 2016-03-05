@@ -415,11 +415,6 @@
             <artifactId>corn-cps</artifactId>
             <version>1.1.7</version>
          </dependency>
-         <dependency>
-            <groupId>net._01001111</groupId>
-            <artifactId>jlorem</artifactId>
-            <version>1.1</version>
-         </dependency>
          <!-- Spring -->
          <dependency>
             <groupId>org.springframework.boot</groupId>

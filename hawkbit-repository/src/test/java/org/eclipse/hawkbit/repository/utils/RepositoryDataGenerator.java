@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.eclipse.hawkbit.TestDataUtil;
 import org.eclipse.hawkbit.im.authentication.SpPermission;
 import org.eclipse.hawkbit.im.authentication.SpPermission.SpringEvalExpressions;
@@ -49,14 +50,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.auditing.AuditingHandler;
-import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
-
-import net._01001111.text.LoremIpsum;
 
 /**
  * Generates test data for setting up the repository for test or demonstration
@@ -95,8 +93,6 @@ public final class RepositoryDataGenerator {
 
         private final AuditingHandler auditingHandler;
 
-        final LoremIpsum jlorem = new LoremIpsum();
-
         PersistentInitDemoDataBuilder(final ConfigurableApplicationContext context) {
             softwareManagement = context.getBean(SoftwareManagement.class);
             targetManagement = context.getBean(TargetManagement.class);
@@ -132,24 +128,18 @@ public final class RepositoryDataGenerator {
             final DistributionSetTag dsTag = tagManagement
                     .createDistributionSetTag(new DistributionSetTag("For " + group + "s"));
 
-            auditingHandler.setDateTimeProvider(new DateTimeProvider() {
-                @Override
-                public Calendar getNow() {
-                    final Calendar instance = Calendar.getInstance();
-                    instance.add(Calendar.MONTH, -new Random().nextInt(7));
+            auditingHandler.setDateTimeProvider(() -> {
+                final Calendar instance = Calendar.getInstance();
+                instance.add(Calendar.MONTH, -new Random().nextInt(7));
 
-                    return instance;
-                }
+                return instance;
             });
 
             final List<Target> targets = createTargetTestGroup(group, 20 * sizeMultiplikator);
 
-            auditingHandler.setDateTimeProvider(new DateTimeProvider() {
-                @Override
-                public Calendar getNow() {
-                    final Calendar instance = Calendar.getInstance();
-                    return instance;
-                }
+            auditingHandler.setDateTimeProvider(() -> {
+                final Calendar instance = Calendar.getInstance();
+                return instance;
             });
 
             LOG.debug("initDemoRepo - start now real action history for group: {}", group);
@@ -219,7 +209,7 @@ public final class RepositoryDataGenerator {
                 final ActionStatus warning = new ActionStatus();
                 warning.setAction(action);
                 warning.setStatus(Status.WARNING);
-                warning.addMessage("Some warning: " + jlorem.words(new Random().nextInt(50)));
+                warning.addMessage("Some warning: " + RandomStringUtils.random(50));
                 action = controllerManagement.addUpdateActionStatus(warning, action);
 
                 // garbage
@@ -227,13 +217,13 @@ public final class RepositoryDataGenerator {
                     final ActionStatus running = new ActionStatus();
                     running.setAction(action);
                     running.setStatus(Status.RUNNING);
-                    running.addMessage("Still running: " + jlorem.words(new Random().nextInt(50)));
+                    running.addMessage("Still running: " + RandomStringUtils.random(50));
                     action = controllerManagement.addUpdateActionStatus(running, action);
                     for (int g = 0; g < new Random().nextInt(5); g++) {
                         final ActionStatus rand = new ActionStatus();
                         rand.setAction(action);
                         rand.setStatus(Status.RUNNING);
-                        rand.addMessage(jlorem.words(new Random().nextInt(50)));
+                        rand.addMessage(RandomStringUtils.random(50));
                         action = controllerManagement.addUpdateActionStatus(rand, action);
                     }
                 }
@@ -300,7 +290,7 @@ public final class RepositoryDataGenerator {
 
                 final StringBuilder builder = new StringBuilder();
                 builder.append(descriptionPrefix);
-                builder.append(jlorem.words(5));
+                builder.append(RandomStringUtils.random(50));
 
                 target.setDescription(builder.toString());
                 target.getTargetInfo().getControllerAttributes().put("revision", "1.1");
@@ -324,77 +314,71 @@ public final class RepositoryDataGenerator {
          *            packages of 1_000 targets
          */
         private void initDemoRepo(final int sizeMultiplikator, final int loadtestgroups) {
-            final LoremIpsum jlorem = new LoremIpsum();
 
-            runAsAllAuthorityContext(new Runnable() {
+            runAsAllAuthorityContext(() -> {
+                dbCleanupUtil.cleanupDB(null);
 
-                @Override
-                public void run() {
-                    dbCleanupUtil.cleanupDB(null);
+                // generate targets and assign DS
+                // 5 groups - 100 targets each -> 500
+                final String[] targetTestGroups = { "SHC", "CCU", "Vehicle", "Vending machine", "ECU" };
 
-                    // generate targets and assign DS
-                    // 5 groups - 100 targets each -> 500
-                    final String[] targetTestGroups = { "SHC", "CCU", "Vehicle", "Vending machine", "ECU" };
+                final String[] modulesTypes = { "HeadUnit_FW", "EDC17_FW", "OSGi_Bundle" };
 
-                    final String[] modulesTypes = { "HeadUnit_FW", "EDC17_FW", "OSGi_Bundle" };
+                final DistributionSetTag depTag = tagManagement
+                        .createDistributionSetTag(new DistributionSetTag("deprecated"));
 
-                    final DistributionSetTag depTag = tagManagement
-                            .createDistributionSetTag(new DistributionSetTag("deprecated"));
+                Arrays.stream(targetTestGroups).forEach(group -> {
+                    generateTestTagetGroup(group, sizeMultiplikator);
+                });
 
-                    Arrays.stream(targetTestGroups).forEach(group -> {
-                        generateTestTagetGroup(group, sizeMultiplikator);
-                    });
+                // garbage DS
+                LOG.debug("initDemoRepo - start now DS garbage");
+                TestDataUtil.generateDistributionSets("Generic Software Package", sizeMultiplikator, softwareManagement,
+                        distributionSetManagement);
+                LOG.debug("initDemoRepo - DS garbage finished");
 
-                    // garbage DS
-                    LOG.debug("initDemoRepo - start now DS garbage");
-                    TestDataUtil.generateDistributionSets("Generic Software Package", sizeMultiplikator,
-                            softwareManagement, distributionSetManagement);
-                    LOG.debug("initDemoRepo - DS garbage finished");
+                LOG.debug("initDemoRepo - start now Extra Software Modules and types");
+                Arrays.stream(modulesTypes).forEach(typeName -> {
+                    final SoftwareModuleType smtype = softwareManagement.createSoftwareModuleType(
+                            new SoftwareModuleType(typeName.toLowerCase().replaceAll("\\s+", ""), typeName,
+                                    RandomStringUtils.random(50), Integer.MAX_VALUE));
 
-                    LOG.debug("initDemoRepo - start now Extra Software Modules and types");
-                    Arrays.stream(modulesTypes).forEach(typeName -> {
-                        final SoftwareModuleType smtype = softwareManagement.createSoftwareModuleType(
-                                new SoftwareModuleType(typeName.toLowerCase().replaceAll("\\s+", ""), typeName,
-                                        jlorem.words(5), Integer.MAX_VALUE));
-
-                        for (int i = 0; i < sizeMultiplikator; i++) {
-                            softwareManagement.createSoftwareModule(new SoftwareModule(smtype, typeName + i, "1.0." + i,
-                                    jlorem.words(5), "the " + typeName + " vendor Inc."));
-                        }
-
-                    });
-                    LOG.debug("initDemoRepo - Extra Software Modules and types finished");
-
-                    LOG.debug("initDemoRepo - start now target garbage");
-
-                    // garbage targets
-                    // unknown
-                    targetManagement
-                            .createTargets(TestDataUtil.generateTargets(targetTestGroups.length * sizeMultiplikator));
-
-                    // registered
-                    targetManagement.createTargets(
-                            TestDataUtil.generateTargets(targetTestGroups.length * sizeMultiplikator, "registered"),
-                            TargetUpdateStatus.REGISTERED, System.currentTimeMillis(), generateIPAddress());
-
-                    // pending
-                    final DistributionSetTag dsTag = tagManagement
-                            .createDistributionSetTag(new DistributionSetTag("OnlyAssignedTag"));
-                    final DistributionSet ds = TestDataUtil.generateDistributionSet("Pending DS", "v1.0",
-                            softwareManagement, distributionSetManagement,
-                            Arrays.asList(new DistributionSetTag[] { dsTag }));
-                    deploymentManagement.assignDistributionSet(ds, targetManagement.createTargets(
-                            TestDataUtil.generateTargets(targetTestGroups.length * sizeMultiplikator, "pending")));
-
-                    // Load test means additional 1_000_000 target
-
-                    for (int i = 0; i < loadtestgroups; i++) {
-                        targetManagement.createTargets(TestDataUtil.generateTargets(i * 1_000, 1_000, "loadtest-"));
+                    for (int i1 = 0; i1 < sizeMultiplikator; i1++) {
+                        softwareManagement.createSoftwareModule(new SoftwareModule(smtype, typeName + i1, "1.0." + i1,
+                                RandomStringUtils.random(50), "the " + typeName + " vendor Inc."));
                     }
 
-                    LOG.debug("initDemoRepo complete");
+                });
+                LOG.debug("initDemoRepo - Extra Software Modules and types finished");
+
+                LOG.debug("initDemoRepo - start now target garbage");
+
+                // garbage targets
+                // unknown
+                targetManagement
+                        .createTargets(TestDataUtil.generateTargets(targetTestGroups.length * sizeMultiplikator));
+
+                // registered
+                targetManagement.createTargets(
+                        TestDataUtil.generateTargets(targetTestGroups.length * sizeMultiplikator, "registered"),
+                        TargetUpdateStatus.REGISTERED, System.currentTimeMillis(), generateIPAddress());
+
+                // pending
+                final DistributionSetTag dsTag = tagManagement
+                        .createDistributionSetTag(new DistributionSetTag("OnlyAssignedTag"));
+                final DistributionSet ds = TestDataUtil.generateDistributionSet("Pending DS", "v1.0",
+                        softwareManagement, distributionSetManagement,
+                        Arrays.asList(new DistributionSetTag[] { dsTag }));
+                deploymentManagement.assignDistributionSet(ds, targetManagement.createTargets(
+                        TestDataUtil.generateTargets(targetTestGroups.length * sizeMultiplikator, "pending")));
+
+                // Load test means additional 1_000_000 target
+
+                for (int i2 = 0; i2 < loadtestgroups; i2++) {
+                    targetManagement.createTargets(TestDataUtil.generateTargets(i2 * 1_000, 1_000, "loadtest-"));
                 }
 
+                LOG.debug("initDemoRepo complete");
             });
         }
         /**
