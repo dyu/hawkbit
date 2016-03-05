@@ -73,16 +73,16 @@ public class TestDataUtil {
 
         final SoftwareModule ah = softwareManagement.createSoftwareModule(
                 new SoftwareModule(findOrCreateSoftwareModuleType(softwareManagement, "application"),
-                        suffix + "application", version + "." + new Random().nextInt(100), RandomStringUtils.random(50),
-                        suffix + " vendor Limited, California"));
+                        suffix + "application", version + "." + new Random().nextInt(100),
+                        RandomStringUtils.randomAlphanumeric(50), suffix + " vendor Limited, California"));
         final SoftwareModule jvm = softwareManagement
                 .createSoftwareModule(new SoftwareModule(findOrCreateSoftwareModuleType(softwareManagement, "runtime"),
-                        suffix + "app runtime", version + "." + new Random().nextInt(100), RandomStringUtils.random(50),
-                        suffix + " vendor GmbH, Stuttgart, Germany"));
+                        suffix + "app runtime", version + "." + new Random().nextInt(100),
+                        RandomStringUtils.randomAlphanumeric(50), suffix + " vendor GmbH, Stuttgart, Germany"));
         final SoftwareModule os = softwareManagement
                 .createSoftwareModule(new SoftwareModule(findOrCreateSoftwareModuleType(softwareManagement, "os"),
-                        suffix + " Firmware", version + "." + new Random().nextInt(100), RandomStringUtils.random(50),
-                        suffix + " vendor Limited Inc, California"));
+                        suffix + " Firmware", version + "." + new Random().nextInt(100),
+                        RandomStringUtils.randomAlphanumeric(50), suffix + " vendor Limited Inc, California"));
 
         final List<SoftwareModuleType> mand = new ArrayList<>();
         mand.add(findOrCreateSoftwareModuleType(softwareManagement, "os"));

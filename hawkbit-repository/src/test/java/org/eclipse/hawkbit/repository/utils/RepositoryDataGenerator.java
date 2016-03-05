@@ -209,7 +209,7 @@ public final class RepositoryDataGenerator {
                 final ActionStatus warning = new ActionStatus();
                 warning.setAction(action);
                 warning.setStatus(Status.WARNING);
-                warning.addMessage("Some warning: " + RandomStringUtils.random(50));
+                warning.addMessage("Some warning: " + RandomStringUtils.randomAlphanumeric(50));
                 action = controllerManagement.addUpdateActionStatus(warning, action);
 
                 // garbage
@@ -217,7 +217,7 @@ public final class RepositoryDataGenerator {
                     final ActionStatus running = new ActionStatus();
                     running.setAction(action);
                     running.setStatus(Status.RUNNING);
-                    running.addMessage("Still running: " + RandomStringUtils.random(50));
+                    running.addMessage("Still running: " + RandomStringUtils.randomAlphanumeric(50));
                     action = controllerManagement.addUpdateActionStatus(running, action);
                     for (int g = 0; g < new Random().nextInt(5); g++) {
                         final ActionStatus rand = new ActionStatus();
@@ -290,7 +290,7 @@ public final class RepositoryDataGenerator {
 
                 final StringBuilder builder = new StringBuilder();
                 builder.append(descriptionPrefix);
-                builder.append(RandomStringUtils.random(50));
+                builder.append(RandomStringUtils.randomAlphanumeric(50));
 
                 target.setDescription(builder.toString());
                 target.getTargetInfo().getControllerAttributes().put("revision", "1.1");
@@ -341,7 +341,7 @@ public final class RepositoryDataGenerator {
                 Arrays.stream(modulesTypes).forEach(typeName -> {
                     final SoftwareModuleType smtype = softwareManagement.createSoftwareModuleType(
                             new SoftwareModuleType(typeName.toLowerCase().replaceAll("\\s+", ""), typeName,
-                                    RandomStringUtils.random(50), Integer.MAX_VALUE));
+                                    RandomStringUtils.randomAlphanumeric(50), Integer.MAX_VALUE));
 
                     for (int i1 = 0; i1 < sizeMultiplikator; i1++) {
                         softwareManagement.createSoftwareModule(new SoftwareModule(smtype, typeName + i1, "1.0." + i1,
