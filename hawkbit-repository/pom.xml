@@ -90,12 +90,6 @@
       <dependency>
          <groupId>org.springframework.hateoas</groupId>
          <artifactId>spring-hateoas</artifactId>
-         <exclusions>
-             <exclusion>
-                <groupId>org.objenesis</groupId>
-                <artifactId>objenesis</artifactId>
-             </exclusion>
-          </exclusions>
       </dependency>
       <dependency>
          <groupId>org.flywaydb</groupId>

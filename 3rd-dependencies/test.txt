@@ -24,7 +24,6 @@
    org.json:json:jar:20141113:test
    org.mariadb.jdbc:mariadb-java-client:jar:1.2.3:test
    org.mockito:mockito-core:jar:1.10.19:test
-   org.objenesis:objenesis:jar:2.1:test
    org.springframework.boot:spring-boot-starter-test:jar:1.2.7.RELEASE:test
    org.springframework.data:spring-data-rest-core:jar:2.3.1.RELEASE:test
    org.springframework.data:spring-data-rest-webmvc:jar:2.3.1.RELEASE:test
